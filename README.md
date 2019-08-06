@@ -1,4 +1,4 @@
-# Static dashboard
+# Static dashboard v2
 
 > My splendiferous Nuxt.js project
 
