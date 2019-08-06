@@ -112,7 +112,7 @@ export default {
   methods: {
     playJpegStream() {
       this.isPlaying = true
-      let socket = new Socket(process.env.VUE_APP_SOCKET, {params: {api_id: this.token.api_id, api_key: this.token.api_key, ip: '1.1.1.1', source: "private_widget"}})
+      let socket = new Socket(process.env.SOCKET_URL, {params: {api_id: this.token.api_id, api_key: this.token.api_key, ip: '1.1.1.1', source: "private_widget"}})
       socket.connect()
       this.channel = socket.channel("cameras:" + this.$route.params.id, {})
       this.channel.join()
