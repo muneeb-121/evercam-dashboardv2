@@ -7,7 +7,7 @@ export default {
   */
   env: {
     API_URL: process.env.API_URL,
-    SOCKET: process.env.SOCKET
+    SOCKET_URL: process.env.SOCKET_URL
   },
 
   head: {
