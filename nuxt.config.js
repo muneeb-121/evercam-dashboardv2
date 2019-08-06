@@ -5,6 +5,10 @@ export default {
   /*
   ** Headers of the page
   */
+  env: {
+    API_URL: process.env.API_URL,
+    SOCKET: process.env.SOCKET
+  },
 
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
