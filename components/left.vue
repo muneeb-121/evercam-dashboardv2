@@ -34,7 +34,10 @@
     </v-list>
 
     <v-list class="pt-0" dense>
-      <v-list-item>
+      <v-list-item
+        :to="'/cameras/new'"
+        link
+      >
         <v-list-item-icon>
           <v-icon>fas fa-video</v-icon>
         </v-list-item-icon>
@@ -42,7 +45,10 @@
         <v-list-item-title>Add IP Camera</v-list-item-title>
       </v-list-item>
 
-      <v-list-item>
+      <v-list-item
+        :to="'/snapmails'"
+        link
+      >
         <v-list-item-icon>
           <v-icon>fas fa-envelope-open-text</v-icon>
         </v-list-item-icon>
@@ -50,7 +56,10 @@
         <v-list-item-title>Snapmail</v-list-item-title>
       </v-list-item>
 
-      <v-list-item>
+      <v-list-item
+        :to="'/archives'"
+        link
+      >
         <v-list-item-icon>
           <v-icon>fas fa-archive</v-icon>
         </v-list-item-icon>
@@ -58,7 +67,10 @@
         <v-list-item-title>Archives</v-list-item-title>
       </v-list-item>
 
-      <v-list-item>
+      <v-list-item
+        :to="'/map'"
+        link
+      >
         <v-list-item-icon>
           <v-icon>fas fa-map-marked</v-icon>
         </v-list-item-icon>
@@ -66,7 +78,10 @@
         <v-list-item-title>Map View</v-list-item-title>
       </v-list-item>
 
-      <v-list-item>
+      <v-list-item
+        :to="'/status'"
+        link
+      >
         <v-list-item-icon>
           <v-icon>fas fa-wifi</v-icon>
         </v-list-item-icon>
@@ -74,7 +89,10 @@
         <v-list-item-title>Status Report</v-list-item-title>
       </v-list-item>
 
-      <v-list-item>
+      <v-list-item
+        :to="'/users/account'"
+        link
+      >
         <v-list-item-icon>
           <v-icon>fas fa-cog</v-icon>
         </v-list-item-icon>
@@ -163,7 +181,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['token'])
+    ...mapGetters(['token', 'user'])
   },
   created() {
     //do something after creating vue instance
@@ -176,14 +194,8 @@ export default {
     },
     getCameras() {
       let myitems = []
-      let api_id = this.token.api_id
-      let api_key = this.token.api_key
-      axios.get(process.env.API_URL + 'cameras',{
-        params: {
-          api_id: api_id,
-          api_key: api_key
-        }
-      })
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`
+      axios.get(process.env.API_URL + 'cameras')
       .then(function (response) {
         // handle success
         let aux = response.data.cameras
@@ -191,7 +203,7 @@ export default {
           myitems.push({
             icon: 'videocam',
             title: arrayItem.name,
-            to: '/camera/' + arrayItem.id
+            to: '/cameras/' + arrayItem.id
           })
         });
       })
