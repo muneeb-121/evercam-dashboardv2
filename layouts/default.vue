@@ -3,12 +3,8 @@
     <left />
     <v-content>
       <v-container>
-        <CameraTabs
-          v-show="camera"
-        ></CameraTabs>
-        <UsersTabs
-          v-if="users == 'users'"
-        ></UsersTabs>
+        <CameraTabs v-show="camera" />
+        <UsersTabs v-if="users == 'users'" />
         <nuxt />
       </v-container>
     </v-content>
@@ -23,22 +19,22 @@
 </style>
 
 <script>
-import Left from '~/components/left.vue'
-import CameraTabs from '~/components/camera_tabs.vue'
-import UsersTabs from '~/components/users_tabs.vue'
+import Left from "~/components/left.vue"
+import CameraTabs from "~/components/camera_tabs.vue"
+import UsersTabs from "~/components/users_tabs.vue"
 
 export default {
-  middleware: 'auth',
+  middleware: "auth",
   components: {
     Left,
     CameraTabs,
     UsersTabs
   },
   computed: {
-    camera () {
+    camera() {
       return this.$route.params.id
     },
-    users () {
+    users() {
       return this.$route.fullPath.split("/")[1]
     }
   }
