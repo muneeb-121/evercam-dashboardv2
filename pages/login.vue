@@ -7,17 +7,38 @@
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
-                  <img src="https://evercam.io/wp-content/uploads/2016/07/EVERCAM-475x100-Transparent.png" alt="Evercam Construction Cameras" width="100%">
+                  <v-img
+                    :src="
+                      'https://evercam.io/wp-content/uploads/2016/07/EVERCAM-475x100-Transparent.png'
+                    "
+                    alt="Evercam Construction Cameras"
+                    width="100%"
+                  />
                 </div>
-                <v-form
-                ref="model">
-                  <v-text-field name="login" label="Login" type="text"
-                                v-model="model.username"></v-text-field>
-                  <v-text-field name="password" label="Password" id="password" type="password"
-                                v-model="model.password"></v-text-field>
+                <v-form ref="model">
+                  <v-text-field
+                    v-model="model.username"
+                    name="login"
+                    label="Login"
+                    type="text"
+                  />
+                  <v-text-field
+                    id="password"
+                    v-model="model.password"
+                    name="password"
+                    label="Password"
+                    type="password"
+                  />
                   <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn block color="primary" @click="preformLogin" :loading="loading">Login</v-btn>
+                    <v-spacer />
+                    <v-btn
+                      block
+                      color="primary"
+                      :loading="loading"
+                      @click="preformLogin"
+                    >
+                      Login
+                    </v-btn>
                   </v-card-actions>
                 </v-form>
               </v-card-text>
@@ -30,40 +51,38 @@
 </template>
 
 <style scoped lang="css">
-  #login {
-    height: 50%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    z-index: 0;
-  }
+#login {
+  height: 50%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  z-index: 0;
+}
 </style>
 
 <script>
-  import { mapActions } from 'vuex'
-  import axios from 'axios'
-  import { LOGIN } from '@/store/types/actions'
+import { mapActions } from "vuex"
+import { LOGIN } from "@/store/types/actions"
 
-  export default {
-    layout: 'clean',
-    middleware: 'unauth',
-    data: () => ({
-      loading: false,
-      model: {
-        username: '',
-        password: ''
-      }
-    }),
-
-    methods: {
-      ...mapActions({ login: LOGIN }),
-      preformLogin() {
-        const form = this.model
-        this.login({ form })
-      },
+export default {
+  layout: "clean",
+  middleware: "unauth",
+  data: () => ({
+    loading: false,
+    model: {
+      username: "",
+      password: ""
     }
+  }),
 
-  };
+  methods: {
+    ...mapActions({ login: LOGIN }),
+    preformLogin() {
+      const form = this.model
+      this.login({ form })
+    }
+  }
+}
 </script>

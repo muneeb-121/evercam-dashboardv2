@@ -1,1 +1,1 @@
-export { default as rehydrateStore } from './rehydrateStore'
+export { default as rehydrateStore } from "./rehydrateStore"
