@@ -6,7 +6,7 @@ export default (key, storage) => {
     const state = JSON.parse(storage.getItem('state'))
     // set app wide auth header for authorized requests
     if (state.auth.token) {
-      axios.defaults.headers.common['Authorization'] = state.auth.token
+      axios.defaults.headers.common['Authorization'] = `Bearer ${state.auth.token}`
     } else {
       delete axios.defaults.headers.common["Authorization"];
     }

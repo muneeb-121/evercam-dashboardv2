@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 
 import * as mutationTypes from '../types/mutations'
 import * as actionTypes from '../types/actions'
@@ -9,11 +10,10 @@ const state = {
 }
 
 const mutations = {
-  [mutationTypes.SET_USER] (state, { users, credentials }) {
-    console.log(users);
-    console.log(credentials);
-    state.token = credentials
-    state.user = users
+  [mutationTypes.SET_USER] (state, { user }) {
+    state.token = user[0].token
+    delete user[0].token;
+    state.user = user[0]
   },
 
   [mutationTypes.UNSET_USER] (state) {
@@ -33,23 +33,14 @@ const actions = {
 
   async [actionTypes.LOGIN] ({ commit }, { form }) {
     try {
-      console.log("url: ", process.env.API_URL + 'users/' + form.username + '/credentials');
-      console.log(form);
-      const auxCredentials = await axios.get(process.env.API_URL + 'users/'+ form.username +'/credentials', {
-        params: {
-          password: form.password
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
-      });
-      const auxUser = await axios.get(process.env.API_URL + 'users/' + form.username, {
-        params: {
-          api_id: auxCredentials.data.api_id,
-          api_key: auxCredentials.data.api_key
-        }
-      })
-      axios.defaults.headers.common['Authorization'] = `Bearer ${auxCredentials.data.api_key}`
-      const users = auxUser.data.users[0]
-      const credentials = auxCredentials.data
-      commit(mutationTypes.SET_USER, { users, credentials })
+      }
+      const { data } = await axios.post(process.env.API_URL + 'auth/login', qs.stringify(form), config)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${data.user[0].token}`
+      commit(mutationTypes.SET_USER, data)
       this.app.router.push('/cameras')
     } catch (err) {
       const message = err.response.status === 401 || 404 ? 'Incorrect username or password' : 'Could not login'

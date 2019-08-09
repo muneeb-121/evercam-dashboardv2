@@ -7,7 +7,7 @@
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
-                  <img src="https://evercam.io/wp-content/uploads/2016/07/EVERCAM-475x100-Transparent.png" alt="Evercam Construction Cameras" width="475" height="100">
+                  <img src="https://evercam.io/wp-content/uploads/2016/07/EVERCAM-475x100-Transparent.png" alt="Evercam Construction Cameras" width="100%">
                 </div>
                 <v-form
                 ref="model">
@@ -61,7 +61,6 @@
       ...mapActions({ login: LOGIN }),
       preformLogin() {
         const form = this.model
-        console.log(form);
         this.login({ form })
       },
     }
