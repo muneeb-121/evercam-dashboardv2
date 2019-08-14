@@ -10,10 +10,9 @@ const state = {
 }
 
 const mutations = {
-  [mutationTypes.SET_USER](state, { user }) {
-    state.token = user[0].token
-    delete user[0].token
-    state.user = user[0]
+  [mutationTypes.SET_USER](state, { token }) {
+    state.token = token
+    state.user = token
   },
 
   [mutationTypes.UNSET_USER](state) {
