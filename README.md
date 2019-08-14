@@ -1,6 +1,6 @@
 # Static dashboard v3
 
-> My splendiferous Nuxt.js project
+> My Nuxt.js project
 
 ## Build Setup
 
