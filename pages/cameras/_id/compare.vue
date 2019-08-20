@@ -5,27 +5,19 @@
         :left-image="require('~/static/favicon.png')"
         :right-image="require('~/static/favicon.png')"
       />
-      <span class="timer" data-from="25" data-to="75" />
-      <div class="inner" />
-      <p>Date: <input id="datepicker" type="text" /></p>
+      <DatePicker />
     </v-layout>
   </div>
 </template>
 
 <script>
 import VueCompareImage from "vue-compare-image"
-import $ from "jquery"
-import "jquery-ui/ui/widgets/datepicker"
-import "jquery-ui/themes/base/datepicker.css"
-import "jquery-ui/themes/base/theme.css"
+import DatePicker from "~/components/date_picker.vue"
 
 export default {
-  components: { VueCompareImage },
-  mounted() {
-    //do something after mounting vue instance
-    //$(".timer").countTo()
-    $(".inner").append("<h2>Compare component</h2>")
-    $("#datepicker").datepicker()
+  components: {
+    VueCompareImage,
+    DatePicker
   }
 }
 </script>
