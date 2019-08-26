@@ -28,7 +28,7 @@ export default {
     title: "Evercam"
   }),
   computed: {
-    ...mapGetters(["token", "user"])
+    ...mapGetters(["token"])
   },
   mounted() {
     this.getCameras()
@@ -62,11 +62,7 @@ export default {
     },
     async getCredentials() {
       try {
-        const res = await axios.get(process.env.API_URL + "auth/credentials", {
-          params: {
-            username: this.user.email
-          }
-        })
+        const res = await axios.get(process.env.API_URL + "auth/credentials")
         return res.data
       } catch (e) {
         console.log(e)

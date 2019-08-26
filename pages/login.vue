@@ -64,7 +64,6 @@
 
 <script>
 import { mapActions } from "vuex"
-import { LOGIN } from "@/store/types/actions"
 
 export default {
   layout: "clean",
@@ -78,7 +77,7 @@ export default {
   }),
 
   methods: {
-    ...mapActions({ login: LOGIN }),
+    ...mapActions({ login: "LOGIN" }),
     preformLogin() {
       const form = this.model
       this.login({ form })

@@ -18,14 +18,14 @@
     <v-tab :to="'/cameras/' + route + '/archives'" nuxt>
       Archives
     </v-tab>
-    <v-tab :to="'/cameras/' + route + '/snapmail'" nuxt>
-      Snapmail
-    </v-tab>
     <v-tab :to="'/cameras/' + route + '/compare'" nuxt>
       Compare
     </v-tab>
     <v-tab :to="'/cameras/' + route + '/local-recordings'" nuxt>
       Local Recordings
+    </v-tab>
+    <v-tab :to="'/cameras/' + route + '/creator'" nuxt>
+      Time-lapse Creator
     </v-tab>
   </v-tabs>
 </template>

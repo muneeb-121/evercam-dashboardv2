@@ -73,6 +73,7 @@ import { Socket } from "phoenix-socket"
 import { mapGetters } from "vuex"
 
 export default {
+  name: "Live",
   data: () => ({
     publicPath: process.env.BASE_URL,
     isPlaying: true,
@@ -80,7 +81,7 @@ export default {
     isLoading: true
   }),
   computed: {
-    ...mapGetters(["token", "user"])
+    ...mapGetters(["token"])
   },
   watch: {
     $route() {
@@ -125,11 +126,7 @@ export default {
     },
     async getCredentials() {
       try {
-        const res = await axios.get(process.env.API_URL + "auth/credentials", {
-          params: {
-            username: this.user.email
-          }
-        })
+        const res = await axios.get(process.env.API_URL + "auth/credentials")
         return res.data
       } catch (e) {
         console.log(e)

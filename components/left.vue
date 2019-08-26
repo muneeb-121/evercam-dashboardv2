@@ -33,20 +33,12 @@
     </v-list>
 
     <v-list class="pt-0" dense>
-      <v-list-item :to="'/cameras/new'" link>
-        <v-list-item-icon>
-          <v-icon>fas fa-video</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-title>Add IP Camera</v-list-item-title>
-      </v-list-item>
-
       <v-list-item :to="'/snapmails'" link>
         <v-list-item-icon>
           <v-icon>fas fa-envelope-open-text</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-title>Snapmail</v-list-item-title>
+        <v-list-item-title>Snapmails</v-list-item-title>
       </v-list-item>
 
       <v-list-item :to="'/archives'" link>
@@ -65,28 +57,12 @@
         <v-list-item-title>Map View</v-list-item-title>
       </v-list-item>
 
-      <v-list-item :to="'/status'" link>
-        <v-list-item-icon>
-          <v-icon>fas fa-wifi</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-title>Status Report</v-list-item-title>
-      </v-list-item>
-
       <v-list-item :to="'/users/account'" link>
         <v-list-item-icon>
           <v-icon>fas fa-cog</v-icon>
         </v-list-item-icon>
 
         <v-list-item-title>Settings</v-list-item-title>
-      </v-list-item>
-
-      <v-list-item>
-        <v-list-item-icon>
-          <v-icon>fas fa-comments</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-title>Live Support</v-list-item-title>
       </v-list-item>
 
       <v-list-item link @click="preformLogout">
@@ -142,7 +118,6 @@
 <script>
 import { mapGetters, mapActions } from "vuex"
 import axios from "axios"
-import { LOGOUT } from "@/store/types/actions"
 
 export default {
   data() {
@@ -158,15 +133,25 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["token", "user"])
+    ...mapGetters(["token"])
   },
   created() {
     //do something after creating vue instance
     this.getCameras()
   },
   methods: {
-    ...mapActions({ logout: LOGOUT }),
+    ...mapActions({ logout: "LOGOUT" }),
     preformLogout() {
+      axios
+        .post(process.env.API_URL + "auth/logout", { token: this.token })
+        .then(function(response) {
+          // handle success
+          console.log("done")
+        })
+        .catch(function(error) {
+          // handle error
+          console.log(error)
+        })
       this.logout()
     },
     getCameras() {
