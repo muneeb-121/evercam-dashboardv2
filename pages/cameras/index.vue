@@ -68,7 +68,7 @@ export default {
           let aux = response.data.cameras
           aux.forEach(function(arrayItem) {
             myitems.push({
-              thumbnail: require('~/static/loading.gif'),
+              thumbnail: require('~/static/unavailable.jpg'),
               title: arrayItem.name,
               exid: arrayItem.id,
               to: "/cameras/" + arrayItem.id
