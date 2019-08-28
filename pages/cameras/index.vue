@@ -23,6 +23,7 @@ export default {
     drawer: true,
     fixed: true,
     items: [],
+    item_indexs: [],
     miniVariant: false,
     right: true,
     rightDrawer: false,
@@ -50,6 +51,7 @@ export default {
     async getCameras() {
       let myitems = []
       let camera_exids = []
+      let array_indexes = []
       let socket = new Socket(process.env.SOCKET_URL, {
         params: {
           token: this.token,
@@ -60,18 +62,16 @@ export default {
       socket.connect()
       let thumbnail_channel = socket.channel("thumbnail:render", {})
       thumbnail_channel.join()
-      thumbnail_channel.on("thumbnail", data => {        
-        this.items.filter(function (item) {
-          if (item.exid.match(data.camera_exid)) {
-            item.thumbnail = `data:image/jpeg;base64,${data.image}`
-          }
-        })
+      thumbnail_channel.on("thumbnail", data => {
+        let item = this.items[this.item_indexs[data.camera_exid]]
+        item.thumbnail = `data:image/jpeg;base64,${data.image}`;
       })
       axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
       axios.get(process.env.API_URL + "cameras")
         .then(function(response) {
           let aux = response.data.cameras
-          aux.forEach(function(arrayItem) {
+          aux.forEach(function(arrayItem, index, array) {
+            array_indexes[arrayItem.id] = index
             camera_exids.push(arrayItem.id)
             myitems.push({
               thumbnail: require('~/static/unavailable.jpg'),
@@ -88,15 +88,12 @@ export default {
       this.channel = thumbnail_channel
       this.items = myitems
       this.exids = camera_exids
+      this.item_indexs = array_indexes
       this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 60000)
     },
 
     refreshThumbnail() {
-      // let thumbnail_channel = this.channel
       this.channel.push("thumbnail", {body: this.exids.join()})
-      // this.items.filter(function (item) {
-      //   thumbnail_channel.push("thumbnail", {body: item.exid})
-      // })
       this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 60000)
     },
 
