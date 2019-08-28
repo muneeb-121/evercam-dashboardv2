@@ -26,7 +26,9 @@ export default {
     miniVariant: false,
     right: true,
     rightDrawer: false,
-    title: "Evercam"
+    title: "Evercam",
+    clearThumbnailTimeOut: null,
+    exids: ""
   }),
   computed: {
     ...mapGetters(["token"])
@@ -38,12 +40,16 @@ export default {
       }
     }
   },
+  beforeDestroy() {
+    this.clearTimer()
+  },
   mounted() {
     this.getCameras()
   },
   methods: {
     async getCameras() {
-      let myitems = []      
+      let myitems = []
+      let camera_exids = []
       let socket = new Socket(process.env.SOCKET_URL, {
         params: {
           token: this.token,
@@ -61,35 +67,41 @@ export default {
           }
         })
       })
-
       axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
       axios.get(process.env.API_URL + "cameras")
         .then(function(response) {
           let aux = response.data.cameras
           aux.forEach(function(arrayItem) {
+            camera_exids.push(arrayItem.id)
             myitems.push({
               thumbnail: require('~/static/unavailable.jpg'),
               title: arrayItem.name,
               exid: arrayItem.id,
               to: "/cameras/" + arrayItem.id
             })
-            thumbnail_channel.push("thumbnail", {body: arrayItem.id})
           })
+          thumbnail_channel.push("thumbnail", {body: camera_exids.join()})
         })
         .catch(function(error) {
           console.log(error)
         })
       this.channel = thumbnail_channel
       this.items = myitems
-      setTimeout(this.refreshThumbnail, 60000)
+      this.exids = camera_exids
+      this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 60000)
     },
 
     refreshThumbnail() {
-      let thumbnail_channel = this.channel
-      this.items.filter(function (item) {
-        thumbnail_channel.push("thumbnail", {body: item.exid})
-      })
-      // setTimeout(this.refreshThumbnail, 60000)
+      // let thumbnail_channel = this.channel
+      this.channel.push("thumbnail", {body: this.exids.join()})
+      // this.items.filter(function (item) {
+      //   thumbnail_channel.push("thumbnail", {body: item.exid})
+      // })
+      this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 60000)
+    },
+
+    clearTimer() {
+      clearTimeout(this.clearThumbnailTimeOut)
     }
   }
 }
