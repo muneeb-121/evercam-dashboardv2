@@ -89,12 +89,12 @@ export default {
       this.items = myitems
       this.exids = camera_exids
       this.item_indexs = array_indexes
-      this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 60000)
+      this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 300000)
     },
 
     refreshThumbnail() {
       this.channel.push("thumbnail", {body: this.exids.join()})
-      this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 60000)
+      this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 300000)
     },
 
     clearTimer() {
