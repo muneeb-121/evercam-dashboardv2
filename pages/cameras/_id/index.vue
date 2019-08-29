@@ -68,7 +68,6 @@
 </style>
 
 <script>
-import axios from "axios"
 import { Socket } from "phoenix-socket"
 import { mapGetters } from "vuex"
 

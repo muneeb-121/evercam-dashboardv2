@@ -146,7 +146,7 @@ export default {
         .post(process.env.API_URL + "auth/logout", { token: this.token })
         .then(function(response) {
           // handle success
-          console.log("done")
+          console.log(response)
         })
         .catch(function(error) {
           // handle error

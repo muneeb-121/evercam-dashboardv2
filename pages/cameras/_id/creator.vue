@@ -7,11 +7,7 @@
       alt="Evercam Logo"
     />
     <div v-else class="cont">
-      <form
-        @submit="checkForm"
-        method="post"
-        class="form-horizontal"
-      >
+      <form method="post" class="form-horizontal" @submit="checkForm">
         <v-expansion-panels>
           <v-expansion-panel>
             <v-expansion-panel-header v-slot="{ open }">
@@ -156,7 +152,7 @@
                           modifiers: { offset: { offset: '0,10px' } }
                         }">
                         <div class="popper">
-                          <img style="max-height:600px;max-width:300px"v-if="watermark_logo" id="file-image"></img>
+                          <img v-if="watermark_logo" id="file-image" style="max-height: 600px; max-width: 300px"/>
                           <p v-else>There's no logo</p>
                         </div>
 
@@ -962,14 +958,25 @@ export default {
         'Saturday': [],
         'Sunday': [],
       }
-      events.map(function(event){
-        var endTime = ''
-        var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        var startTime = moment(event.start).get('hours');
-        var endTime = moment(event.end).get('hours');
-        var day = moment(event.start).get('day');
-        schedule[days[day]] = schedule[days[day]].concat(startTime + "-" + endTime)
-      });
+      events
+      .map(function(event) {
+        var endTime = ""
+        var days = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ]
+        var startTime = moment(event.start).get("hours")
+        var endTime = moment(event.end).get("hours")
+        var day = moment(event.start).get("day")
+        schedule[days[day]] = schedule[days[day]].concat(
+          `${startTime}-${endTime}`
+        )
+      })
       return schedule
     }
   }

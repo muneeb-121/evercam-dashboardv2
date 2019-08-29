@@ -2,7 +2,12 @@
   <v-layout wrap>
     <v-flex v-for="item in items" :key="item.exid" xs12 md4>
       <nuxt-link :to="item.to">
-        <v-img :id="item.exid" :src="item.thumbnail" :lazy-src="item.thumbnail" aspect-ratio="1" />
+        <v-img
+          :id="item.exid"
+          :src="item.thumbnail"
+          :lazy-src="item.thumbnail"
+          aspect-ratio="1"
+        />
       </nuxt-link>
     </v-flex>
   </v-layout>
@@ -64,23 +69,26 @@ export default {
       thumbnail_channel.join()
       thumbnail_channel.on("thumbnail", data => {
         let item = this.items[this.item_indexs[data.camera_exid]]
-        item.thumbnail = `data:image/jpeg;base64,${data.image}`;
+        item.thumbnail = `data:image/jpeg;base64,${data.image}`
       })
       axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
-      axios.get(process.env.API_URL + "cameras")
+      axios
+        .get(process.env.API_URL + "cameras")
         .then(function(response) {
           let aux = response.data.cameras
-          aux.forEach(function(arrayItem, index, array) {
+          aux.forEach(function(arrayItem, index) {
             array_indexes[arrayItem.id] = index
             camera_exids.push(arrayItem.id)
             myitems.push({
-              thumbnail: require('~/static/unavailable.jpg'),
+              thumbnail: require("~/static/unavailable.jpg"),
               title: arrayItem.name,
               exid: arrayItem.id,
               to: "/cameras/" + arrayItem.id
             })
           })
-          thumbnail_channel.push("thumbnail", {body: camera_exids.join()})
+          thumbnail_channel.push("thumbnail", {
+            body: camera_exids.join()
+          })
         })
         .catch(function(error) {
           console.log(error)
@@ -93,7 +101,9 @@ export default {
     },
 
     refreshThumbnail() {
-      this.channel.push("thumbnail", {body: this.exids.join()})
+      this.channel.push("thumbnail", {
+        body: this.exids.join()
+      })
       this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 300000)
     },
 
