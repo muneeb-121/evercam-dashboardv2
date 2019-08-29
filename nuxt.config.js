@@ -32,7 +32,14 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    "@/assets/cameras/index.scss",
+    "@/assets/cameras/_id/local_recordings.scss",
+    "@/assets/cameras/_id/details.scss",
+    "@/assets/cameras/_id/sharings.scss",
+    "@/assets/cameras/_id/compares.scss",
+    "@/assets/cameras/_id/archives.scss"
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -40,7 +47,7 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  devModules: ["@nuxtjs/vuetify"],
+  buildModules: ["@nuxtjs/vuetify"],
   /*
    ** Nuxt.js modules
    */
