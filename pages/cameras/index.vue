@@ -37,7 +37,6 @@ export default {
     async getCameras() {
       let myitems = []
       let keys = await this.getCredentials()
-      axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
       axios
         .get(process.env.API_URL + "cameras")
         .then(function(response) {

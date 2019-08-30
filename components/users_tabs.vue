@@ -23,6 +23,7 @@
 
 <script>
 export default {
+  name: "UserTabs",
   computed: {
     route() {
       return this.$route.params.id

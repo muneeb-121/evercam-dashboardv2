@@ -2,7 +2,7 @@
   <div>
     <span class="timer" data-from="25" data-to="75" />
     <div class="inner" />
-    <p>Date: <input id="datepicker" type="text" /></p>
+    <p>Date: <input id="datepicker" type="text"></p>
   </div>
 </template>
 
@@ -13,6 +13,7 @@ import "jquery-ui/themes/base/datepicker.css"
 import "jquery-ui/themes/base/theme.css"
 
 export default {
+  name: "DatePicker",
   mounted() {
     //do something after mounting vue instance
     //$(".timer").countTo()

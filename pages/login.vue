@@ -1,18 +1,37 @@
 <template>
-  <v-app id="login" class="primary">
+  <v-app id="login">
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4 lg4>
+          <video-player
+            ref="videoPlayer"
+            class="video-player-box"
+            :options="{
+              muted: true,
+              autoplay: true,
+              fluid: true,
+              loop: true,
+              controls: false,
+              userActions: {
+                hotkeys: false
+              },
+              language: 'en',
+              sources: [
+                {
+                  type: 'video/mp4',
+                  src: require('~/static/gpoview-a756f65192d97eb7c27d054296cd84fa4d2c41707d8c8ad1a579690cfb66e093.mp4')
+                }
+              ]
+            }"
+          />
+          <v-flex xs12 sm8 md4 lg3>
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
                   <v-img
-                    :src="
-                      'https://evercam.io/wp-content/uploads/2016/07/EVERCAM-475x100-Transparent.png'
-                    "
+                    :src="require('~/static/EVERCAM-475x100-Transparent-2.png')"
                     alt="Evercam Construction Cameras"
-                    width="100%"
+                    width="70%"
                   />
                 </div>
                 <v-form ref="model">
@@ -37,11 +56,12 @@
                       :loading="loading"
                       @click="preformLogin"
                     >
-                      Login
+                      Sign in
                     </v-btn>
                   </v-card-actions>
                 </v-form>
               </v-card-text>
+              <v-card-text class="text-center">I've <a href="./">forgotten my password</a></v-card-text>
             </v-card>
           </v-flex>
         </v-layout>
@@ -50,24 +70,40 @@
   </v-app>
 </template>
 
-<style scoped lang="css">
+<style scoped>
+::-webkit-scrollbar {
+    display: none !important;
+}
 #login {
-  height: 50%;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
   content: "";
   z-index: 0;
+  height: 100%;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+}
+.video-player-box {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
 }
 </style>
 
 <script>
 import { mapActions } from "vuex"
+import { videoPlayer } from "vue-video-player"
+import "video.js/dist/video-js.css"
 
 export default {
   layout: "clean",
   middleware: "unauth",
+  components: {
+    videoPlayer
+  },
   data: () => ({
     loading: false,
     model: {
@@ -75,7 +111,6 @@ export default {
       password: ""
     }
   }),
-
   methods: {
     ...mapActions({ login: "LOGIN" }),
     preformLogin() {
