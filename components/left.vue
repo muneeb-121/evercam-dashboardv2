@@ -11,7 +11,7 @@
       <v-list-group value="true">
         <template v-slot:activator>
           <v-list-item-content>
-            <v-list-item-title>
+            <v-list-item-title class="nav-label">
               <v-img
                 :src="require('~/static/favicon.png')"
                 alt="Evercam Logo"
@@ -82,38 +82,6 @@
     </template>
   </v-navigation-drawer>
 </template>
-
-<style scoped>
-#style-1::-webkit-scrollbar {
-  width: 6px;
-  background-color: #f5f5f5;
-}
-#style-1::-webkit-scrollbar-thumb {
-  background-color: #f90;
-  background-image: -webkit-linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.2) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.2) 75%,
-    transparent 75%,
-    transparent
-  );
-}
-#style-1::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #f5f5f5;
-}
-.tile {
-  background: #303030;
-}
-.evercam-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 32px;
-}
-</style>
 
 <script>
 import { mapGetters, mapActions } from "vuex"
