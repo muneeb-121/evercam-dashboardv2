@@ -16,7 +16,10 @@
                 :src="require('~/static/favicon.png')"
                 alt="Evercam Logo"
                 class="evercam-icon"
-              />Cameras
+              />
+              <nuxt-link class="cameras-link" :to="'/cameras'">
+                Cameras
+              </nuxt-link>
             </v-list-item-title>
           </v-list-item-content>
         </template>
@@ -139,7 +142,6 @@ export default {
           })
         })
         .catch(function(error) {
-          // handle error
           console.log(error)
         })
       this.items = myitems
