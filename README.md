@@ -1,6 +1,6 @@
-# Static dashboard v2
+# Static dashboard
 
-> My splendiferous Nuxt.js project
+> Evercam User dashboard (Nuxt.js)
 
 ## Build Setup
 

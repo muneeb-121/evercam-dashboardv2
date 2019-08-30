@@ -32,7 +32,17 @@ export default {
   /*
    ** Global CSS
    */
-  css: ["~/assets/css/main.css"],
+  css: [
+    "@/assets/left_nav.scss",
+    "@/assets/login.scss",
+    "@/assets/users/accounts.scss",
+    "@/assets/cameras/index.scss",
+    "@/assets/cameras/_id/local_recordings.scss",
+    "@/assets/cameras/_id/details.scss",
+    "@/assets/cameras/_id/sharings.scss",
+    "@/assets/cameras/_id/compares.scss",
+    "@/assets/cameras/_id/archives.scss"
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -95,10 +105,13 @@ export default {
         config.module.rules.push({
           enforce: "pre",
           test: /\.(js|vue)$/,
-          //loader: "eslint-loader",
+          // loader: "eslint-loader",
           exclude: /(node_modules)/
         })
       }
     }
+  },
+  generate: {
+    fallback: true
   }
 }

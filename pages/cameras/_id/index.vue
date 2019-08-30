@@ -66,7 +66,6 @@
 </style>
 
 <script>
-import axios from "axios"
 import { Socket } from "phoenix-socket"
 import { mapGetters } from "vuex"
 
@@ -100,11 +99,9 @@ export default {
   methods: {
     async playJpegStream() {
       this.isPlaying = true
-      let keys = await this.getCredentials()
       let socket = new Socket(process.env.SOCKET_URL, {
         params: {
-          api_id: keys.api_id,
-          api_key: keys.api_key,
+          token: this.token,
           ip: "1.1.1.1",
           source: "private_widget"
         }
@@ -120,14 +117,6 @@ export default {
     stopJpegStream() {
       if (this.channel) {
         this.channel.leave()
-      }
-    },
-    async getCredentials() {
-      try {
-        const res = await axios.get(process.env.API_URL + "auth/credentials")
-        return res.data
-      } catch (e) {
-        console.log(e)
       }
     }
   }

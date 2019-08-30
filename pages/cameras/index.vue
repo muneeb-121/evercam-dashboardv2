@@ -1,72 +1,115 @@
 <template>
   <v-layout wrap>
-    <v-flex v-for="(i, index) in items" :key="index" xs12 md4>
-      <nuxt-link :to="i.to">
-        <v-img :src="i.thumbnail" :lazy-src="i.thumbnail" aspect-ratio="1" />
+    <v-flex v-for="item in items" :key="item.exid" xs12 md4 camera-container>
+      <nuxt-link :to="item.to">
+        <v-img
+          :id="item.exid"
+          :src="item.thumbnail"
+          :lazy-src="item.thumbnail"
+          aspect-ratio="1"
+        />
       </nuxt-link>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import axios from "axios"
-import { mapGetters } from "vuex"
+  import axios from "axios"
+  import { Socket } from "phoenix-socket"
+  import { mapGetters } from "vuex"
 
-export default {
-  middleware: "auth",
-  components: {
-    //
-  },
-  data: () => ({
-    clipped: true,
-    drawer: true,
-    fixed: true,
-    items: [],
-    miniVariant: false,
-    right: true,
-    rightDrawer: false,
-    title: "Evercam"
-  }),
-  computed: {
-    ...mapGetters(["token"])
-  },
-  mounted() {
-    this.getCameras()
-  },
-  methods: {
-    async getCameras() {
-      let myitems = []
-      let keys = await this.getCredentials()
-      axios
-        .get(process.env.API_URL + "cameras")
-        .then(function(response) {
-          let aux = response.data.cameras
-          aux.forEach(function(arrayItem) {
-            myitems.push({
-              thumbnail:
-                arrayItem.thumbnail_url +
-                "?api_id=" +
-                keys.api_id +
-                "&api_key=" +
-                keys.api_key,
-              title: arrayItem.name,
-              to: "/cameras/" + arrayItem.id
+  export default {
+    middleware: "auth",
+    components: {
+      //
+    },
+    data: () => ({
+      clipped: true,
+      drawer: true,
+      fixed: true,
+      items: [],
+      item_indexs: [],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
+      title: "Evercam",
+      clearThumbnailTimeOut: null,
+      exids: ""
+    }),
+    computed: {
+      ...mapGetters(["token"])
+    },
+    watch: {
+      $route() {
+        if (this.channel) {
+          this.channel.leave()
+        }
+      }
+    },
+    beforeDestroy() {
+      this.clearTimer()
+    },
+    mounted() {
+      this.getCameras()
+    },
+    methods: {
+      async getCameras() {
+        let myitems = []
+        let camera_exids = []
+        let array_indexes = []
+        let socket = new Socket(process.env.SOCKET_URL, {
+          params: {
+            token: this.token,
+            ip: "1.1.1.1",
+            source: "Thumbnail render"
+          }
+        })
+        socket.connect()
+        let thumbnail_channel = socket.channel("thumbnail:render", {})
+        thumbnail_channel.join()
+        thumbnail_channel.on("thumbnail", data => {
+          let item = this.items[this.item_indexs[data.camera_exid]]
+          item.thumbnail = `data:image/jpeg;base64,${data.image}`
+        })
+        axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
+        axios
+          .get(process.env.API_URL + "cameras")
+          .then(function(response) {
+            let aux = response.data.cameras
+            aux.forEach(function(arrayItem, index) {
+              array_indexes[arrayItem.id] = index
+              camera_exids.push(arrayItem.id)
+              myitems.push({
+                thumbnail: require("~/static/unavailable.jpg"),
+                title: arrayItem.name,
+                exid: arrayItem.id,
+                to: "/cameras/" + arrayItem.id
+              })
+            })
+            thumbnail_channel.push("thumbnail", {
+              body: camera_exids.join()
             })
           })
+          .catch(function(error) {
+            console.log(error)
+          })
+        this.channel = thumbnail_channel
+        this.items = myitems
+        this.exids = camera_exids
+        this.item_indexs = array_indexes
+        this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 300000)
+      },
+
+      refreshThumbnail() {
+        this.channel.push("thumbnail", {
+          body: this.exids.join()
         })
-        .catch(function(error) {
-          console.log(error)
-        })
-      this.items = myitems
-    },
-    async getCredentials() {
-      try {
-        const res = await axios.get(process.env.API_URL + "auth/credentials")
-        return res.data
-      } catch (e) {
-        console.log(e)
+        this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 300000)
+      },
+
+      clearTimer() {
+        clearTimeout(this.clearThumbnailTimeOut)
       }
     }
   }
-}
 </script>

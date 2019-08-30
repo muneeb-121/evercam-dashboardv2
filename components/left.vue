@@ -12,12 +12,15 @@
       <v-list-group value="true">
         <template v-slot:activator>
           <v-list-item-content>
-            <v-list-item-title>
+            <v-list-item-title class="nav-label">
               <v-img
                 :src="require('~/static/favicon.png')"
                 alt="Evercam Logo"
                 class="evercam-icon"
-              />Cameras
+              />
+              <nuxt-link class="cameras-link" :to="'/cameras'">
+                Cameras
+              </nuxt-link>
             </v-list-item-title>
           </v-list-item-content>
         </template>
@@ -86,13 +89,6 @@
   </v-navigation-drawer>
 </template>
 
-<style scoped>
-.ps {
-  height: 500px;
-  background: #303030;
-}
-</style>
-
 <script>
 import { mapGetters, mapActions } from "vuex"
 import axios from "axios"
@@ -130,7 +126,7 @@ export default {
         .post(process.env.API_URL + "auth/logout", { token: this.token })
         .then(function(response) {
           // handle success
-          console.log("done")
+          console.log(response)
         })
         .catch(function(error) {
           // handle error
@@ -155,7 +151,6 @@ export default {
           })
         })
         .catch(function(error) {
-          // handle error
           console.log(error)
         })
       this.items = myitems

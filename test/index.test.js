@@ -8,7 +8,9 @@ test.before("Init Nuxt.js", async t => {
   let config = {}
   try {
     config = require(resolve(rootDir, "nuxt.config.js"))
-  } catch (e) {}
+  } catch (e) {
+    config = {}
+  }
   config.rootDir = rootDir // project folder
   config.dev = false // production build
   config.mode = "spa" // Isomorphic application
@@ -23,7 +25,7 @@ test("Route / exits and render HTML", async t => {
   const { nuxt } = t.context
   let context = {}
   const { html } = await nuxt.renderRoute("/login", context)
-  t.true(html.includes('<body data-n-head="">'))
+  t.true(html.includes("<body data-n-head=''>"))
 })
 
 // Example of testing via DOM checking
@@ -35,7 +37,7 @@ test("Route / exists and renders HTML with CSS applied", async t => {
   t.not(element, null)
   t.is(element.textContent, "Hello")
   t.is(element.className, "red")
-  //t.is(window.getComputedStyle(element).color, 'red')
+  //t.is(window.getComputedStyle(element).color, "red")
 })
 
 // Close the Nuxt server
