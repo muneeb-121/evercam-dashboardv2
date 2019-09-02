@@ -46,7 +46,7 @@
     "vue-ctk-date-time-picker": "^2.1.1",
     "vue-functional-calendar": "^2.5.9",
     "vue-popperjs": "^2.0.4",
-    "vuex-persist": "^2.0.1",
+    "vuex-persist": "^2.1.0",
     "vue2-datepicker": "git://github.com/JoaoPedroAS51/vue2-datepicker.git#custom"
   },
   "devDependencies": {
