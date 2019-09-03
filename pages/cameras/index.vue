@@ -37,7 +37,7 @@
       exids: ""
     }),
     computed: {
-      ...mapGetters(["token"])
+      ...mapGetters(["token", "cameras"])
     },
     watch: {
       $route() {
@@ -71,28 +71,43 @@
           let item = this.items[this.item_indexs[data.camera_exid]]
           item.thumbnail = `data:image/jpeg;base64,${data.image}`
         })
-        axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
-        axios
-          .get(process.env.API_URL + "cameras")
-          .then(function(response) {
-            let aux = response.data.cameras
-            aux.forEach(function(arrayItem, index) {
-              array_indexes[arrayItem.id] = index
-              camera_exids.push(arrayItem.id)
-              myitems.push({
-                thumbnail: require("~/static/unavailable.jpg"),
-                title: arrayItem.name,
-                exid: arrayItem.id,
-                to: "/cameras/" + arrayItem.id
-              })
-            })
-            thumbnail_channel.push("thumbnail", {
-              body: camera_exids.join()
-            })
+
+        this.cameras.forEach(function(camera, index) {
+          array_indexes[camera.id] = index
+          camera_exids.push(camera.id)
+          myitems.push({
+            thumbnail: require("~/static/unavailable.jpg"),
+            title: camera.name,
+            exid: camera.id,
+            to: "/cameras/" + camera.id
           })
-          .catch(function(error) {
-            console.log(error)
-          })
+        })
+        thumbnail_channel.push("thumbnail", {
+          body: camera_exids.join()
+        })
+
+        // axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
+        // axios
+        //   .get(process.env.API_URL + "cameras")
+        //   .then(function(response) {
+        //     let aux = response.data.cameras
+        //     aux.forEach(function(arrayItem, index) {
+        //       array_indexes[arrayItem.id] = index
+        //       camera_exids.push(arrayItem.id)
+        //       myitems.push({
+        //         thumbnail: require("~/static/unavailable.jpg"),
+        //         title: arrayItem.name,
+        //         exid: arrayItem.id,
+        //         to: "/cameras/" + arrayItem.id
+        //       })
+        //     })
+        //     thumbnail_channel.push("thumbnail", {
+        //       body: camera_exids.join()
+        //     })
+        //   })
+        //   .catch(function(error) {
+        //     console.log(error)
+        //   })
         this.channel = thumbnail_channel
         this.items = myitems
         this.exids = camera_exids

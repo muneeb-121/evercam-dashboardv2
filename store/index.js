@@ -19,6 +19,14 @@ export const mutations = {
 
   UNSET_USER(state) {
     state.token = null
+  },
+
+  SET_CAMERAS(state, { cameras }) {
+    state.cameras = cameras
+  },
+
+  UNSET_CAMERAS(state) {
+    state.cameras = null
   }
 }
 
@@ -27,7 +35,7 @@ export const actions = {
     axios.defaults.headers.common["Authorization"] = undefined
     delete axios.defaults.headers.common["Authorization"]
     commit("UNSET_USER")
-    // redirect
+    commit("UNSET_CAMERAS")
     this.app.router.push("/login")
   },
 
@@ -43,20 +51,34 @@ export const actions = {
         qs.stringify(form),
         config
       )
+      
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`
+      const res = await axios.get(`${process.env.API_URL}cameras`)
+      const cameras_json = res.data
       commit("SET_USER", data)
+      commit("SET_CAMERAS", cameras_json)
       this.app.router.push("/cameras")
     } catch (err) {
-      const message =
-        err.response.status === 401
-          ? "Incorrect username or password"
-          : "Could not login"
-      console.log(message)
+      console.log(err)
+    }
+  },
+
+  async CAMERAS({ commit }, { token }) {
+    try {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+      const { data } = await axios.get(
+        `${process.env.API_URL}cameras`
+      )
+      commit("SET_CAMERAS", data)
+    } catch (err) {
+      console.log(err)
     }
   }
 }
 
 export const getters = {
   token: state => state.token,
+  cameras: state => state.cameras,
   isAuthenticated: state => state.token !== null
 }
 

@@ -104,7 +104,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["token"])
+    ...mapGetters(["token", "cameras"])
   },
   created() {
     //do something after creating vue instance
@@ -127,23 +127,30 @@ export default {
     },
     getCameras() {
       let myitems = []
-      axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
-      axios
-        .get(process.env.API_URL + "cameras")
-        .then(function(response) {
-          // handle success
-          let aux = response.data.cameras
-          aux.forEach(function(arrayItem) {
-            myitems.push({
-              icon: "videocam",
-              title: arrayItem.name,
-              to: "/cameras/" + arrayItem.id
-            })
-          })
+      this.cameras.forEach(function(camera) {
+        myitems.push({
+          icon: "videocam",
+          title: camera.name,
+          to: "/cameras/" + camera.id
         })
-        .catch(function(error) {
-          console.log(error)
-        })
+      })
+      // axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
+      // axios
+      //   .get(process.env.API_URL + "cameras")
+      //   .then(function(response) {
+      //     // handle success
+      //     let aux = response.data.cameras
+      //     aux.forEach(function(arrayItem) {
+      //       myitems.push({
+      //         icon: "videocam",
+      //         title: arrayItem.name,
+      //         to: "/cameras/" + arrayItem.id
+      //       })
+      //     })
+      //   })
+      //   .catch(function(error) {
+      //     console.log(error)
+      //   })
       this.items = myitems
     }
   }
