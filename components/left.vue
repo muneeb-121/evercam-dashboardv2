@@ -134,23 +134,6 @@ export default {
           to: "/cameras/" + camera.id
         })
       })
-      // axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
-      // axios
-      //   .get(process.env.API_URL + "cameras")
-      //   .then(function(response) {
-      //     // handle success
-      //     let aux = response.data.cameras
-      //     aux.forEach(function(arrayItem) {
-      //       myitems.push({
-      //         icon: "videocam",
-      //         title: arrayItem.name,
-      //         to: "/cameras/" + arrayItem.id
-      //       })
-      //     })
-      //   })
-      //   .catch(function(error) {
-      //     console.log(error)
-      //   })
       this.items = myitems
     }
   }

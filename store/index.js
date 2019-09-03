@@ -9,7 +9,8 @@ import { rehydrateStore } from "@/utils"
 Vue.use(Vuex)
 
 export const state = () => ({
-  token: null
+  token: null,
+  cameras: null
 })
 
 export const mutations = {
