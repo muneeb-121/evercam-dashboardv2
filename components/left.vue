@@ -134,15 +134,17 @@
 }
 
 .smalest-size {
-  font-size: 3px;
+  font-size: 3px !important;
 }
 
 .title {
   background: #303030;
-  min-height: 25px;
+  min-height: 25px !important;
 }
 
 .title-text {
+  font-size: 13px important;
+  font-weight: normal !important;
   flex-grow: unset;
   flex-basis: auto;
   margin-left: 3px;
