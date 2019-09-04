@@ -24,15 +24,34 @@
             </v-list-item-title>
           </v-list-item-content>
         </template>
+
         <perfect-scrollbar>
           <v-list-item
             v-for="(item, i) in items"
             :key="i"
             :to="item.to"
             link
-            class="tile"
+            class="title"
           >
-            <v-list-item-title v-text="item.title" />
+            <v-icon
+              v-if="item.recording_status === 'on'"
+              class="green--text smalest-size"
+              v-bind:title="item.storage_duration"
+            >
+              fas fa-circle
+            </v-icon>
+            <v-list-item-title
+              class="title-text"
+              v-bind:class="{ 'camera-opacity': item.camera_offline }"
+              v-text="item.title"
+              v-bind:title="item.offline_reason"
+            />
+            <v-icon
+              v-if="item.status !== 'online'"
+              x-small
+              class="red--text">
+              fa fa-unlink
+            </v-icon>
           </v-list-item>
         </perfect-scrollbar>
       </v-list-group>
@@ -89,6 +108,73 @@
   </v-navigation-drawer>
 </template>
 
+<style scoped>
+#style-1::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+}
+
+#style-1::-webkit-scrollbar-thumb {
+  background-color: #f90;
+  background-image: -webkit-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+}
+
+#style-1::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+
+.camera-opacity {
+  opacity: 0.60;
+}
+
+.smalest-size {
+  font-size: 3px !important;
+}
+
+.title {
+  background: #303030;
+  min-height: 25px !important;
+}
+
+.title-text {
+  font-size: 13px !important;
+  font-weight: normal !important;
+  flex-grow: unset;
+  flex-basis: auto;
+  margin-left: 3px;
+  margin-right: 5px;
+}
+
+.cameras-link {
+  text-decoration: none;
+  color: #ffffff !important;
+}
+
+.nav-label {
+  color: #fff;
+  font-size: 16px !important;
+  padding-top: 5px;
+}
+
+.evercam-icon {
+  float: left;
+  height: 24px;
+  margin-right: 5px;
+  margin-top: -4px;
+  width: 24px;
+}
+</style>
+
 <script>
 import { mapGetters, mapActions } from "vuex"
 import axios from "axios"
@@ -113,7 +199,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["token"])
+    ...mapGetters(["token", "cameras"])
   },
   created() {
     //do something after creating vue instance
@@ -136,23 +222,17 @@ export default {
     },
     getCameras() {
       let myitems = []
-      axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`
-      axios
-        .get(process.env.API_URL + "cameras")
-        .then(function(response) {
-          // handle success
-          let aux = response.data.cameras
-          aux.forEach(function(arrayItem) {
-            myitems.push({
-              icon: "videocam",
-              title: arrayItem.name,
-              to: "/cameras/" + arrayItem.id
-            })
-          })
+      this.cameras.forEach(function(camera) {
+        myitems.push({
+          offline_reason: (camera.status == "offline" ? camera.offline_reason : ""),
+          storage_duration: (camera.cloud_recordings ? camera.cloud_recordings.storage_duration : ""),
+          title: camera.name,
+          status: camera.status,
+          camera_offline: (camera.status == "offline" ? true : false),
+          recording_status: (camera.cloud_recordings ? camera.cloud_recordings.status : ""),
+          to: "/cameras/" + camera.id
         })
-        .catch(function(error) {
-          console.log(error)
-        })
+      })
       this.items = myitems
     }
   }

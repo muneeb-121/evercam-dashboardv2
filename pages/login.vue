@@ -91,10 +91,11 @@ export default {
     }
   }),
   methods: {
-    ...mapActions({ login: "LOGIN" }),
+    ...mapActions({ login: "LOGIN", cameras: "CAMERAS" }),
     preformLogin() {
       const form = this.model
       this.login({ form })
+      // this.cameras()
     }
   }
 }
