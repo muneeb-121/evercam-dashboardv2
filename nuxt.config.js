@@ -46,7 +46,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/vuetify"],
+  plugins: ["~/plugins/vuetify", { src: "~plugins/vimeo-player", ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -91,6 +91,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    //vendor: ["vue-vimeo-player"],
     plugins: [
       new webpack.ProvidePlugin({
         $: "jquery",

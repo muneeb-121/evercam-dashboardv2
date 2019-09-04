@@ -22,7 +22,7 @@ module.exports = {
   rules: {
     "semi": [2, "never"],
     "no-console": "off",
-    "indent": ["error", 2],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     "quotes": ["error", "double"],
     "vue/max-attributes-per-line": "off",
     "prettier/prettier": ["error", { "semi": false }]

@@ -92,7 +92,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex"
 import axios from "axios"
-import { PerfectScrollbar } from 'vue2-perfect-scrollbar'
+import { PerfectScrollbar } from "vue2-perfect-scrollbar"
 import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"
 
 export default {

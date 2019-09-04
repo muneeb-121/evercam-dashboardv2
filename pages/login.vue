@@ -5,7 +5,7 @@
         <v-layout align-center justify-center>
           <video-player
             ref="videoPlayer"
-            class="video-player-box"
+            class="video-player-login"
             :options="{
               muted: true,
               autoplay: true,
@@ -61,7 +61,9 @@
                   </v-card-actions>
                 </v-form>
               </v-card-text>
-              <v-card-text class="text-center">I've <a href="./">forgotten my password</a></v-card-text>
+              <v-card-text class="text-center">
+                I've <a href="./">forgotten my password</a>
+              </v-card-text>
             </v-card>
           </v-flex>
         </v-layout>

@@ -51,7 +51,7 @@
                         '&api_key=' +
                         api_key
                     "
-                  >
+                  />
                 </v-list-item-avatar>
                 <v-list-item-content>
                   <v-list-item-title v-text="data.item.name" />
@@ -298,14 +298,9 @@
 </style>
 
 <script>
-import FunctionalCalendar from "vue-functional-calendar"
 import moment from "moment"
-import Popper from "vue-popperjs"
-import "vue-popperjs/dist/vue-popper.css"
 import VueCompareImage from "vue-compare-image"
 import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css"
-import { CoolSelect, EventEmitter } from "vue-cool-select"
-import { BulmaAccordion, BulmaAccordionItem } from "vue-bulma-accordion"
 import VueCtkDateTimePicker from "vue-ctk-date-time-picker"
 import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css"
 import axios from "axios"
@@ -315,12 +310,7 @@ import "fullcalendar/dist/fullcalendar.css"
 export default {
   name: "Timelapse",
   components: {
-    FunctionalCalendar,
-    popper: Popper,
     VueCompareImage,
-    CoolSelect,
-    BulmaAccordion,
-    BulmaAccordionItem,
     VueCtkDateTimePicker,
     FullCalendar
   },
@@ -424,13 +414,13 @@ export default {
           var schedule = JSON.stringify(this.parseCalendar())
           this.myschedule = schedule
         },
-        eventClick: (event, element) => {
+        eventClick: event => {
           event.preventDefault
           if (window.confirm("Are you sure you want to delete this event?")) {
             this.$refs.calendar.fireMethod("removeEvents", event._id)
           }
         },
-        eventResize: event => {
+        eventResize: () => {
           this.$refs.calendar.$emit("refetch-events")
           var schedule = JSON.stringify(this.parseCalendar())
           this.myschedule = schedule
@@ -469,7 +459,6 @@ export default {
         }
       },
       cameras: [],
-      camera_id: null,
       camera_name: null,
       schedule: "continuous",
       title: null,
@@ -485,7 +474,6 @@ export default {
       items: [],
       selected: null,
       loading: false,
-      selectEventEmitter: new EventEmitter(),
       rm_date: false,
       op_rm_date: [{ text: "Yes", value: true }, { text: "No", value: false }],
       op_date: [
@@ -661,7 +649,6 @@ export default {
     },
 
     get_disable_dates(camera_id, date) {
-      let first_day = moment(date).format("DD")
       let last_day = moment(date)
         .endOf("month")
         .format("DD")
@@ -795,7 +782,7 @@ export default {
           this.ajaxWait = false
           this.editTitle()
         })
-        .catch(function(error) {
+        .catch(() => {
           return []
         })
     },
@@ -922,25 +909,6 @@ export default {
       this.componentKey += 1
     },
 
-    checkForm2: function() {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName("needs-validation")
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener(
-          "submit",
-          function(event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault()
-              event.stopPropagation()
-            }
-            form.classList.add("was-validated")
-          },
-          false
-        )
-      })
-    },
-
     checkForm: function(e) {
       if (this.selected) {
         let formData = new FormData()
@@ -980,7 +948,7 @@ export default {
               this.clearForm()
             }
           })
-          .catch(function(error) {
+          .catch(() => {
             this.clearForm()
           })
       }
@@ -1019,7 +987,6 @@ export default {
       this.headers = false
       this.format = "mp4"
       this.rm_date = false
-      this.selectEventEmitter.emit("set-search", "")
     },
     onFileChange(e) {
       this.watermark_logo = e.target.files[0]
@@ -1043,7 +1010,6 @@ export default {
         Sunday: []
       }
       events.map(function(event) {
-        var endTime = ""
         var days = [
           "Sunday",
           "Monday",
