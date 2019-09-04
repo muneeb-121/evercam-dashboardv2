@@ -50,7 +50,7 @@
     "vue2-datepicker": "git://github.com/JoaoPedroAS51/vue2-datepicker.git#custom"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.6.1",
+    "@nuxtjs/vuetify": "^1.6.2",
     "nodemon": "^1.19.2"
   }
 }
