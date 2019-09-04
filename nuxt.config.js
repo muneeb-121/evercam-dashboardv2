@@ -33,10 +33,8 @@ export default {
    ** Global CSS
    */
   css: [
-    "@/assets/left_nav.scss",
     "@/assets/login.scss",
     "@/assets/users/accounts.scss",
-    "@/assets/cameras/index.scss",
     "@/assets/cameras/_id/local_recordings.scss",
     "@/assets/cameras/_id/details.scss",
     "@/assets/cameras/_id/sharings.scss",

@@ -1,17 +1,54 @@
 <template>
   <v-layout wrap>
     <v-flex v-for="item in items" :key="item.exid" xs12 md4 camera-container>
-      <nuxt-link :to="item.to">
+      <nuxt-link :to="item.to" class="camera-link">
         <v-img
           :id="item.exid"
           :src="item.thumbnail"
           :lazy-src="item.thumbnail"
           aspect-ratio="1"
+          class="image-container"
         />
+        <v-card class="camera-info">
+          {{ item.title }}
+          <v-icon
+            v-if="item.status !== 'online'"
+            x-small
+            class="red--text">
+            fa fa-unlink
+          </v-icon>
+        </v-card>
       </nuxt-link>
     </v-flex>
   </v-layout>
 </template>
+
+<style scoped>
+.camera-container {
+  overflow: hidden;
+  height: 412px;
+  margin-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.camera-link {
+  text-decoration: none;
+}
+
+.image-container {
+  height: 412px;
+}
+
+.camera-info {
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 12px;
+  margin-top: -22px;
+  margin-left: 5px;
+  position: relative;
+}
+</style>
 
 <script>
   import axios from "axios"
@@ -75,6 +112,7 @@
             thumbnail: require("~/static/unavailable.jpg"),
             title: camera.name,
             exid: camera.id,
+            status: camera.status,
             to: "/cameras/" + camera.id
           })
         })
