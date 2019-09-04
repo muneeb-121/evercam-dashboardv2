@@ -3,26 +3,10 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <video-player
-            ref="videoPlayer"
-            class="video-player-login"
-            :options="{
-              muted: true,
-              autoplay: true,
-              fluid: true,
-              loop: true,
-              controls: false,
-              userActions: {
-                hotkeys: false
-              },
-              language: 'en',
-              sources: [
-                {
-                  type: 'video/mp4',
-                  src: require('~/static/gpoview-a756f65192d97eb7c27d054296cd84fa4d2c41707d8c8ad1a579690cfb66e093.mp4')
-                }
-              ]
-            }"
+          <vue-video-background
+            :video-src-mp4="
+              require('~/static/gpoview-a756f65192d97eb7c27d054296cd84fa4d2c41707d8c8ad1a579690cfb66e093.mp4')
+            "
           />
           <v-flex xs12 sm8 md4 lg3>
             <v-card class="elevation-1 pa-3">
@@ -74,14 +58,13 @@
 
 <script>
 import { mapActions } from "vuex"
-import { videoPlayer } from "vue-video-player"
-import "video.js/dist/video-js.css"
+import VueVideoBackground from "vue-video-background"
 
 export default {
   layout: "clean",
   middleware: "unauth",
   components: {
-    videoPlayer
+    VueVideoBackground
   },
   data: () => ({
     loading: false,

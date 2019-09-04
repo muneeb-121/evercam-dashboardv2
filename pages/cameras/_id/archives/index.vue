@@ -91,7 +91,9 @@
             "
           >
             <v-list-item-title>
-              <v-icon small>{{ item.icon }}</v-icon>
+              <v-icon small>
+                {{ item.icon }}
+              </v-icon>
               &nbsp;{{ item.title }}
             </v-list-item-title>
           </v-list-item>
@@ -208,7 +210,7 @@
                     @change="filesChange($event.target.files)"
                   />
                   <p v-if="isInitial">
-                    Drag your video here to begin<br />
+                    Drag your video here to begin<br >
                     or click to browse
                   </p>
                   <p v-if="isSaving">Uploading {{ fileCount }} files...</p>
@@ -216,7 +218,7 @@
                     {{ file.name }}
                   </p>
                   <p v-if="isFailed">
-                    Failed, click here or drag your<br />video here to try again
+                    Failed, click here or drag your<br >video here to try again
                   </p>
                 </div>
               </v-col>

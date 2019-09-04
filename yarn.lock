@@ -10074,6 +10074,11 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
+vue-video-background@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/vue-video-background/-/vue-video-background-0.1.2.tgz#6149a30dbbf34a2d01ea009b0c951783055387b8"
+  integrity sha512-0iW0GTzGXWKv1uoGoW228pUSlQjLeU5W0DWjB8rp0BFV8COkWk4rKjL9cTZkHkcHD0U70EPwYzwSxP8CarHMng==
+
 vue-video-player@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/vue-video-player/-/vue-video-player-5.0.2.tgz#34a42239ff304efc7698da20a4165051d766c1e6"
@@ -10125,7 +10130,7 @@ vuetify@^2.0.12:
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.0.14.tgz#aa0da805075a96662b14d9274c6bb38b7b7212ee"
   integrity sha512-s7gNKelJT+J4eEpDTJE+Bl7jT9KHy1UQXJsJVL06lHF7JAscsc+hY/OY3xGUvkBOUqslK/r9wS23VG3/9pTZPA==
 
-vuex-persist@^2.1.0:
+vuex-persist@^2.0.1:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/vuex-persist/-/vuex-persist-2.1.0.tgz#16b549aace89892e8cf6f9e2bca457008df2a677"
   integrity sha512-H9RqXHeynBQG60rUrsinYNLoRFXkSxh2Xx8kTVFuvLRQ9jZd3HLMvm713m2r1dN/pVZBUgiIzTu6uj5hBsAOqg==

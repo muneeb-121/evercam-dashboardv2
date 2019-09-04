@@ -52,7 +52,7 @@ export const actions = {
         qs.stringify(form),
         config
       )
-      
+
       axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`
       const res = await axios.get(`${process.env.API_URL}cameras`)
       const cameras_json = res.data
@@ -67,9 +67,7 @@ export const actions = {
   async CAMERAS({ commit }, { token }) {
     try {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-      const { data } = await axios.get(
-        `${process.env.API_URL}cameras`
-      )
+      const { data } = await axios.get(`${process.env.API_URL}cameras`)
       commit("SET_CAMERAS", data)
     } catch (err) {
       console.log(err)

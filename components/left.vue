@@ -24,7 +24,6 @@
             </v-list-item-title>
           </v-list-item-content>
         </template>
-
         <perfect-scrollbar>
           <v-list-item
             v-for="(item, i) in items"
@@ -36,20 +35,17 @@
             <v-icon
               v-if="item.recording_status === 'on'"
               class="green--text smalest-size"
-              v-bind:title="item.storage_duration"
+              :title="item.storage_duration"
             >
               fas fa-circle
             </v-icon>
             <v-list-item-title
               class="title-text"
-              v-bind:class="{ 'camera-opacity': item.camera_offline }"
+              :class="{ 'camera-opacity': item.camera_offline }"
+              :title="item.offline_reason"
               v-text="item.title"
-              v-bind:title="item.offline_reason"
             />
-            <v-icon
-              v-if="item.status !== 'online'"
-              x-small
-              class="red--text">
+            <v-icon v-if="item.status !== 'online'" x-small class="red--text">
               fa fa-unlink
             </v-icon>
           </v-list-item>
@@ -109,32 +105,13 @@
 </template>
 
 <style scoped>
-#style-1::-webkit-scrollbar {
-  width: 6px;
-  background-color: #f5f5f5;
-}
-
-#style-1::-webkit-scrollbar-thumb {
-  background-color: #f90;
-  background-image: -webkit-linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.2) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.2) 75%,
-    transparent 75%,
-    transparent
-  );
-}
-
-#style-1::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #f5f5f5;
+.ps {
+  max-height: 500px;
+  background: #303030;
 }
 
 .camera-opacity {
-  opacity: 0.60;
+  opacity: 0.6;
 }
 
 .smalest-size {
@@ -224,12 +201,17 @@ export default {
       let myitems = []
       this.cameras.forEach(function(camera) {
         myitems.push({
-          offline_reason: (camera.status == "offline" ? camera.offline_reason : ""),
-          storage_duration: (camera.cloud_recordings ? camera.cloud_recordings.storage_duration : ""),
+          offline_reason:
+            camera.status == "offline" ? camera.offline_reason : "",
+          storage_duration: camera.cloud_recordings
+            ? camera.cloud_recordings.storage_duration
+            : "",
           title: camera.name,
           status: camera.status,
-          camera_offline: (camera.status == "offline" ? true : false),
-          recording_status: (camera.cloud_recordings ? camera.cloud_recordings.status : ""),
+          camera_offline: camera.status == "offline" ? true : false,
+          recording_status: camera.cloud_recordings
+            ? camera.cloud_recordings.status
+            : "",
           to: "/cameras/" + camera.id
         })
       })
