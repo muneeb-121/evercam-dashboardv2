@@ -143,7 +143,7 @@
 }
 
 .title-text {
-  font-size: 13px important;
+  font-size: 13px !important;
   font-weight: normal !important;
   flex-grow: unset;
   flex-basis: auto;

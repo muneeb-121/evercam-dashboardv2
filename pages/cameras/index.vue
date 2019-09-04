@@ -41,7 +41,7 @@
 }
 
 .camera-info {
-  background-color: transparent;
+  background-color: transparent !important;
   box-shadow: none;
   font-size: 12px;
   margin-top: -22px;
