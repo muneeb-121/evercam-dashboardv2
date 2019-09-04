@@ -1027,17 +1027,17 @@
     consola "^2.5.6"
     http-proxy-middleware "^0.19.1"
 
-"@nuxtjs/vuetify@^1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/vuetify/-/vuetify-1.6.1.tgz#b80a67438331d19f5495f6beeecd571b2b5274f2"
-  integrity sha512-I/WgpuulIDOg6ocl5yA7ETyD3oVEYx2ZmXN97axItxgP2nqD77oJxaxb1TKaK1R2kMbpXTGgeGoLZyo1ZRajvA==
+"@nuxtjs/vuetify@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/vuetify/-/vuetify-1.6.2.tgz#9a69645db739e04bc845c60fd4e6338379b34f8b"
+  integrity sha512-5dHBaR/RzqzicWrt1G3Gpi4jVRG6ky/lmXpXjFvoAgmyIWpA0Ddbok/HFnRvidQl5/rbD3jhfh0S7Gpx9ZDH2w==
   dependencies:
     consola "^2.10.1"
     deepmerge "^4.0.0"
     fibers "^4.0.1"
     sass "^1.22.10"
     sass-loader "^8.0.0"
-    vuetify "^2.0.11"
+    vuetify "^2.0.12"
     vuetify-loader "^1.3.0"
 
 "@nuxtjs/youch@^4.2.3":
@@ -3654,10 +3654,10 @@ escodegen@^1.11.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-prettier@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.1.0.tgz#e6f678ba367fbd1273998d5510f76f004e9dce7b"
-  integrity sha512-k9fny9sPjIBQ2ftFTesJV21Rg4R/7a7t7LCtZVrYQiHEp8Nnuk3EGaDmsKSAnsPj0BYcgB2zxzHa2NTkIxcOLg==
+eslint-config-prettier@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.2.0.tgz#80e0b8714e3f6868c4ac2a25fbf39c02e73527a7"
+  integrity sha512-VLsgK/D+S/FEsda7Um1+N8FThec6LqE3vhcMyp8mlmto97y3fGf3DX7byJexGuOb1QY0Z/zz222U5t+xSfcZDQ==
   dependencies:
     get-stdin "^6.0.0"
 
@@ -6301,10 +6301,10 @@ node-res@^5.0.1:
     on-finished "^2.3.0"
     vary "^1.1.2"
 
-nodemon@^1.18.9:
-  version "1.19.1"
-  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.19.1.tgz#576f0aad0f863aabf8c48517f6192ff987cd5071"
-  integrity sha512-/DXLzd/GhiaDXXbGId5BzxP1GlsqtMGM9zTmkWrgXtSqjKmGSbLicM/oAy4FR0YWm14jCHRwnR31AHS2dYFHrg==
+nodemon@^1.19.2:
+  version "1.19.2"
+  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.19.2.tgz#b0975147dc99b3761ceb595b3f9277084931dcc0"
+  integrity sha512-hRLYaw5Ihyw9zK7NF+9EUzVyS6Cvgc14yh8CAYr38tPxJa6UrOxwAQ351GwrgoanHCF0FalQFn6w5eoX/LGdJw==
   dependencies:
     chokidar "^2.1.5"
     debug "^3.1.0"
@@ -9622,10 +9622,10 @@ vue-no-ssr@^1.1.1:
   resolved "https://registry.yarnpkg.com/vue-no-ssr/-/vue-no-ssr-1.1.1.tgz#875f3be6fb0ae41568a837f3ac1a80eaa137b998"
   integrity sha512-ZMjqRpWabMPqPc7gIrG0Nw6vRf1+itwf0Itft7LbMXs2g3Zs/NFmevjZGN1x7K3Q95GmIjWbQZTVerxiBxI+0g==
 
-vue-popperjs@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/vue-popperjs/-/vue-popperjs-2.0.4.tgz#e863a179ee2b5ce0039009c172a02d3473fc8f07"
-  integrity sha512-9fCE0k8ze8rP+Iif+zpAiJyFpeQDs2RxPYnwuXNedrFdrlQkiYCp/pWytLA25dJ21850ag9XCWZUR6soMvjR9g==
+vue-popperjs@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/vue-popperjs/-/vue-popperjs-2.1.0.tgz#5dbf5eb053c754c8c9b11a31261aa0e0006b2bd4"
+  integrity sha512-LfcMfndjzDBHUaQhXpck1qlhXgsz8EpE56SHBQOVkeia2xFyxv7opoGzvxdcZKhfb9viZFj58oGWzE76yX73QA==
   dependencies:
     popper.js "^1.15.0"
 
@@ -9687,10 +9687,10 @@ vuetify-loader@^1.3.0:
   dependencies:
     loader-utils "^1.2.0"
 
-vuetify@^2.0.11:
-  version "2.0.11"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.0.11.tgz#4679d6d37e4594daec930b28f1bc7083bcc76ca6"
-  integrity sha512-H5g0Wf/KHS1t29X+kh5hkj25dZNITCDtOb3UGl1YXx5Ua3xXUfXBRjKP50BJ7uZtQ3Jk9CiwoA6k3Lstv6zFow==
+vuetify@^2.0.12:
+  version "2.0.14"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.0.14.tgz#aa0da805075a96662b14d9274c6bb38b7b7212ee"
+  integrity sha512-s7gNKelJT+J4eEpDTJE+Bl7jT9KHy1UQXJsJVL06lHF7JAscsc+hY/OY3xGUvkBOUqslK/r9wS23VG3/9pTZPA==
 
 vuex-persist@^2.1.0:
   version "2.1.0"
