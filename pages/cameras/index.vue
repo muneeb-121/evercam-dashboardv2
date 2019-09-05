@@ -38,6 +38,10 @@
 
 .image-container {
   height: 412px;
+  background-image: url(http://localhost:3000/_nuxt/static/evercam-loading-gif.gif);
+  background-position: center center;
+  background-size: 150px;
+  background-color: #fff !important;
 }
 
 .camera-info {
@@ -109,7 +113,7 @@
           array_indexes[camera.id] = index
           camera_exids.push(camera.id)
           myitems.push({
-            thumbnail: require("~/static/unavailable.jpg"),
+            thumbnail: "",
             title: camera.name,
             exid: camera.id,
             status: camera.status,
