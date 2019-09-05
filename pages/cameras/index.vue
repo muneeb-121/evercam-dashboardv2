@@ -38,7 +38,7 @@
 
 .image-container {
   height: 412px;
-  background-image: url(http://localhost:3000/_nuxt/static/evercam-loading-gif.gif);
+  background-image: url(~static/evercam-loading-gif.gif);
   background-position: center center;
   background-size: 150px;
   background-color: #fff !important;
