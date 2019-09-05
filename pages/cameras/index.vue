@@ -35,6 +35,10 @@
 
 .image-container {
   height: 412px;
+  background-image: url(~static/evercam-loading-gif.gif);
+  background-position: center center;
+  background-size: 150px;
+  background-color: #fff !important;
 }
 
 .camera-info {
@@ -101,7 +105,7 @@ export default {
       socket.connect()
       let thumbnail_channel = socket.channel("thumbnail:render", {})
       thumbnail_channel.join()
-
+      
       this.cameras.forEach(function(camera, index) {
         array_indexes[camera.id] = index
         camera_exids.push(camera.id)
