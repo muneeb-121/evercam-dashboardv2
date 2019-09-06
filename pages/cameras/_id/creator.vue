@@ -913,10 +913,9 @@ export default {
       if (this.selected) {
         let formData = new FormData()
         let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-        console.log(timezone)
         formData.append("camera", this.selected.id)
-        formData.append("from_datetime", this.from_datetime)
-        formData.append("to_datetime", this.to_datetime)
+        formData.append("from_datetime", moment(this.from_datetime).format())
+        formData.append("to_datetime", moment(this.to_datetime).format())
         formData.append("title", this.title)
         formData.append("analyze", this.analyze)
         formData.append("headers", this.headers)

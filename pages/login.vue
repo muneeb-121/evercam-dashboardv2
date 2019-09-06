@@ -56,6 +56,20 @@
   </v-app>
 </template>
 
+<style scoped>
+#login {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  z-index: 0;
+  height: 100%;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+}
+</style>
+
 <script>
 import { mapActions } from "vuex"
 import VueVideoBackground from "vue-video-background"
