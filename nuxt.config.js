@@ -66,7 +66,7 @@ export default {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ["~/assets/css/variables.scss"],
+    customVariables: ["~/assets/variables.scss"],
     theme: {
       dark: false,
       themes: {
@@ -89,7 +89,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    //vendor: ["vue-vimeo-player"],
     plugins: [
       new webpack.ProvidePlugin({
         $: "jquery",

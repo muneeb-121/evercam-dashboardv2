@@ -144,7 +144,7 @@
                       v-on="on"
                     />
                   </template>
-                  <v-date-picker v-model="time" @input="menu2 = false" />
+                  <v-date-picker v-model="date" @input="menu2 = false" />
                 </v-menu>
               </v-col>
               <v-col
