@@ -13,6 +13,7 @@ import "jquery-ui/themes/base/datepicker.css"
 import "jquery-ui/themes/base/theme.css"
 
 export default {
+  name: "DatePicker",
   mounted() {
     //do something after mounting vue instance
     //$(".timer").countTo()

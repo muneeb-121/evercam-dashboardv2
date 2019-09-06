@@ -1,61 +1,59 @@
 <template>
-  <div>
-    <v-layout align-center justify-center>
-      <v-img
-        v-if="isLoading"
-        class="text-xs-center buttons"
-        :src="require('~/static/loading.gif')"
-        alt="Evercam Logo"
-      />
-      <v-img
+  <v-layout align-center justify-center>
+    <v-img
+      v-if="isLoading"
+      class="text-xs-center buttons"
+      :src="require('~/static/loading.gif')"
+      alt="Evercam Logo"
+    />
+    <v-img
+      v-else
+      :src="url"
+      :lazy-src="url"
+      class="grey lighten-2"
+      width="100%"
+    />
+    <div v-if="!isLoading" class="text-xs-center buttons">
+      <v-btn
+        v-if="!isPlaying"
+        dark
+        fab
+        small
+        color="rgba(0, 0, 0, 0.65)"
+        @click="
+          isPlaying = !isPlaying
+          playJpegStream()
+        "
+      >
+        <v-icon>fas fa-play</v-icon>
+      </v-btn>
+      <v-btn
         v-else
-        :src="url"
-        :lazy-src="url"
-        class="grey lighten-2"
-        width="100%"
-      />
-      <div v-if="!isLoading" class="text-xs-center buttons">
-        <v-btn
-          v-if="!isPlaying"
-          dark
-          fab
-          small
-          color="rgba(0, 0, 0, 0.65)"
-          @click="
-            isPlaying = !isPlaying
-            playJpegStream()
-          "
-        >
-          <v-icon>fas fa-play</v-icon>
-        </v-btn>
-        <v-btn
-          v-else
-          dark
-          fab
-          small
-          color="rgba(0, 0, 0, 0.65)"
-          @click="
-            isPlaying = !isPlaying
-            stopJpegStream()
-          "
-        >
-          <v-icon>fas fa-pause</v-icon>
-        </v-btn>
-        <v-btn dark fab small color="rgba(0, 0, 0, 0.65)">
-          <v-icon>fas fa-search</v-icon>
-        </v-btn>
-        <v-btn dark fab small color="rgba(0, 0, 0, 0.65)">
-          <v-icon>fas fa-download</v-icon>
-        </v-btn>
-        <v-btn dark fab small color="rgba(0, 0, 0, 0.65)">
-          <v-icon>fas fa-pencil-alt</v-icon>
-        </v-btn>
-        <v-btn dark fab small color="rgba(0, 0, 0, 0.65)">
-          <v-icon>fas fa-expand-arrows-alt</v-icon>
-        </v-btn>
-      </div>
-    </v-layout>
-  </div>
+        dark
+        fab
+        small
+        color="rgba(0, 0, 0, 0.65)"
+        @click="
+          isPlaying = !isPlaying
+          stopJpegStream()
+        "
+      >
+        <v-icon>fas fa-pause</v-icon>
+      </v-btn>
+      <v-btn dark fab small color="rgba(0, 0, 0, 0.65)">
+        <v-icon>fas fa-search</v-icon>
+      </v-btn>
+      <v-btn dark fab small color="rgba(0, 0, 0, 0.65)">
+        <v-icon>fas fa-download</v-icon>
+      </v-btn>
+      <v-btn dark fab small color="rgba(0, 0, 0, 0.65)">
+        <v-icon>fas fa-pencil-alt</v-icon>
+      </v-btn>
+      <v-btn dark fab small color="rgba(0, 0, 0, 0.65)">
+        <v-icon>fas fa-expand-arrows-alt</v-icon>
+      </v-btn>
+    </div>
+  </v-layout>
 </template>
 
 <style scope>

@@ -1,18 +1,21 @@
 <template>
-  <v-app id="login" class="primary">
+  <v-app id="login">
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4 lg4>
+          <vue-video-background
+            :video-src-mp4="
+              require('~/static/gpoview-a756f65192d97eb7c27d054296cd84fa4d2c41707d8c8ad1a579690cfb66e093.mp4')
+            "
+          />
+          <v-flex xs12 sm8 md4 lg3>
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
                   <v-img
-                    :src="
-                      'https://evercam.io/wp-content/uploads/2016/07/EVERCAM-475x100-Transparent.png'
-                    "
+                    :src="require('~/static/EVERCAM-475x100-Transparent-2.png')"
                     alt="Evercam Construction Cameras"
-                    width="100%"
+                    width="70%"
                   />
                 </div>
                 <v-form ref="model">
@@ -37,10 +40,13 @@
                       :loading="loading"
                       @click="preformLogin"
                     >
-                      Login
+                      Sign in
                     </v-btn>
                   </v-card-actions>
                 </v-form>
+              </v-card-text>
+              <v-card-text class="text-center">
+                I've <a href="./">forgotten my password</a>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -52,10 +58,14 @@
 
 <script>
 import { mapActions } from "vuex"
+import VueVideoBackground from "vue-video-background"
 
 export default {
   layout: "clean",
   middleware: "unauth",
+  components: {
+    VueVideoBackground
+  },
   data: () => ({
     loading: false,
     model: {
@@ -63,7 +73,6 @@ export default {
       password: ""
     }
   }),
-
   methods: {
     ...mapActions({ login: "LOGIN", cameras: "CAMERAS" }),
     preformLogin() {

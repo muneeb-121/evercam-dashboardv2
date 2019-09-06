@@ -44,7 +44,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/vuetify"],
+  plugins: ["~/plugins/vuetify", { src: "~plugins/vimeo-player", ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -66,9 +66,9 @@ export default {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ["~/assets/variables.scss"],
+    customVariables: ["~/assets/css/variables.scss"],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken1,
@@ -89,6 +89,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    //vendor: ["vue-vimeo-player"],
     plugins: [
       new webpack.ProvidePlugin({
         $: "jquery",
