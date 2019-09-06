@@ -375,7 +375,7 @@ export default {
       let url = ""
       switch (this.archive.type) {
         case "clip":
-          url = `${process.env.API_URL_V2}cameras/${this.$route.params.id}/archives/${this.$route.params.arid}.mp4?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
+          url = `${process.env.OLD_API}cameras/${this.$route.params.id}/archives/${this.$route.params.arid}.mp4?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
           break
         case "compare":
           url = `${process.env.API_URL_V2}cameras/${this.$route.params.id}/compares/${this.$route.params.arid}.mp4?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
