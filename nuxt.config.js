@@ -8,7 +8,9 @@ export default {
    */
   env: {
     API_URL: process.env.API_URL,
-    SOCKET_URL: process.env.SOCKET_URL
+    SOCKET_URL: process.env.SOCKET_URL,
+    API_URL_V2: process.env.API_URL_V2,
+    TUS_URL: process.env.TUS_URL
   },
 
   head: {
