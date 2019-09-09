@@ -154,7 +154,6 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex"
-import axios from "axios"
 import { PerfectScrollbar } from "vue2-perfect-scrollbar"
 import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"
 
@@ -185,8 +184,8 @@ export default {
   methods: {
     ...mapActions({ logout: "LOGOUT" }),
     preformLogout() {
-      axios
-        .post(process.env.API_URL + "auth/logout", { token: this.token })
+      this.$axios
+        .$post(process.env.API_URL + "auth/logout", { token: this.token })
         .then(function(response) {
           // handle success
           console.log(response)

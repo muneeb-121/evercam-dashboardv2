@@ -46,7 +46,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/vuetify", { src: "~plugins/vimeo-player", ssr: false }],
+  plugins: [
+    "~/plugins/vuetify",
+    { src: "~plugins/vimeo-player", ssr: false },
+    "~/plugins/axios",
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -56,13 +60,9 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    "@nuxtjs/dotenv"
+    "@nuxtjs/dotenv",
+    "@nuxtjs/axios"
   ],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {},
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

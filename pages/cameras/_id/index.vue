@@ -1,11 +1,13 @@
 <template>
-  <v-layout align-center justify-center>
-    <v-img
+  <v-layout align-center justify-center style="">
+    <v-progress-circular
       v-if="isLoading"
-      class="text-xs-center buttons"
-      :src="require('~/static/loading.gif')"
-      alt="Evercam Logo"
-    />
+      :size="80"
+      :width="7"
+      color="primary"
+      indeterminate
+      class="loading"
+    ></v-progress-circular>
     <v-img
       v-else
       :src="url"
@@ -62,6 +64,10 @@
 }
 .button {
   opacity: 0.5;
+}
+.loading {
+  position: absolute;
+  top: 50%;
 }
 </style>
 

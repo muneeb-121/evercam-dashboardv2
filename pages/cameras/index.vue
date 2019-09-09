@@ -52,12 +52,10 @@
 </style>
 
 <script>
-import axios from "axios"
 import { Socket } from "phoenix-socket"
 import { mapGetters } from "vuex"
 
 export default {
-  middleware: "auth",
   components: {
     //
   },
@@ -105,7 +103,7 @@ export default {
       socket.connect()
       let thumbnail_channel = socket.channel("thumbnail:render", {})
       thumbnail_channel.join()
-      
+
       this.cameras.forEach(function(camera, index) {
         array_indexes[camera.id] = index
         camera_exids.push(camera.id)
