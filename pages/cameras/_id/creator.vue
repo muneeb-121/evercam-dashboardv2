@@ -303,7 +303,6 @@ import VueCompareImage from "vue-compare-image"
 import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css"
 import VueCtkDateTimePicker from "vue-ctk-date-time-picker"
 import "vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css"
-import axios from "axios"
 import { FullCalendar } from "vue-full-calendar"
 import "fullcalendar/dist/fullcalendar.css"
 
@@ -539,9 +538,9 @@ export default {
         let from_timestamp = moment(this.from_datetime)
           .subtract(1, "hours")
           .format("YYYY-MM-DDTHH:mm:ss.000+00:00")
-        axios
-          .get(
-            process.env.API_URL +
+        this.$axios
+          .$get(
+              process.env.API_URL + 
               "cameras/" +
               this.selected.id +
               "/recordings/snapshots/" +
@@ -549,8 +548,8 @@ export default {
               "/nearest"
           )
           .then(response => {
-            if (response.data.snapshots.length != 0) {
-              this.before_img = response.data.snapshots[0].data
+            if (response.snapshots.length != 0) {
+              this.before_img = response.snapshots[0].data
             }
           })
       }
@@ -570,9 +569,9 @@ export default {
         let to_timestamp = moment(this.to_datetime)
           .subtract(1, "hours")
           .format("YYYY-MM-DDTHH:mm:ss.000+00:00")
-        axios
-          .get(
-            process.env.API_URL +
+        this.$axios
+          .$get(
+              process.env.API_URL + 
               "cameras/" +
               this.selected.id +
               "/recordings/snapshots/" +
@@ -580,8 +579,8 @@ export default {
               "/nearest"
           )
           .then(response => {
-            if (response.data.snapshots.length != 0) {
-              this.after_img = response.data.snapshots[0].data
+            if (response.snapshots.length != 0) {
+              this.after_img = response.snapshots[0].data
             }
           })
       }
@@ -589,9 +588,9 @@ export default {
   },
 
   mounted() {
-    axios.get(process.env.API_URL + "/auth/credentials").then(response => {
-      this.api_key = response.data.api_key
-      this.api_id = response.data.api_id
+    this.$axios.$get(process.env.API_URL + "auth/credentials").then(response => {
+      this.api_key = response.api_key
+      this.api_id = response.api_id
     })
     this.getCameras()
     //this.editTitle()
@@ -662,9 +661,9 @@ export default {
 
       let availible_days
       let disabled_days_value = []
-      axios
-        .get(
-          process.env.API_URL +
+      this.$axios
+        .$get(
+            process.env.API_URL + 
             "cameras/" +
             camera_id +
             "/recordings/snapshots/" +
@@ -674,7 +673,7 @@ export default {
             "/days"
         )
         .then(response => {
-          availible_days = response.data.days
+          availible_days = response.days
           let days_diff = this.arrayDiff(month_all_days, availible_days)
           days_diff.forEach(function(day) {
             let month_val = ("0" + month).slice(-2)
@@ -693,9 +692,9 @@ export default {
 
       let availible_hours
       let disabled_hours_value = []
-      axios
-        .get(
-          process.env.API_URL +
+      this.$axios
+        .$get(
+            process.env.API_URL + 
             "cameras/" +
             camera_id +
             "/recordings/snapshots/" +
@@ -707,7 +706,7 @@ export default {
             "/hours"
         )
         .then(response => {
-          availible_hours = response.data.hours
+          availible_hours = response.hours
           for (let i = 0; i <= 23; i++) {
             if (!availible_hours.includes(i)) {
               let hour_val = ("0" + i).slice(-2)
@@ -735,47 +734,47 @@ export default {
     },
 
     compare_images(camera_id) {
-      axios
-        .get(
-          process.env.API_URL +
+      this.$axios
+        .$get(
+            process.env.API_URL + 
             "cameras/" +
             camera_id +
             "/recordings/snapshots/oldest"
         )
         .then(response => {
-          this.before_img = response.data.data
-          this.from_datetime = moment(response.data.created_at).format(
+          this.before_img = response.data
+          this.from_datetime = moment(response.created_at).format(
             "YYYY-MM-DD HH:mm"
           )
           this.from_disabled_days = this.get_disable_dates(
             camera_id,
-            response.data.created_at
+            response.created_at
           )
         })
-      axios
-        .get(
-          process.env.API_URL +
+      this.$axios
+        .$get(
+            process.env.API_URL +
             "cameras/" +
             camera_id +
             "/recordings/snapshots/latest"
         )
         .then(response => {
-          this.after_img = response.data.data
-          this.to_datetime = moment(response.data.created_at).format(
+          this.after_img = response.data
+          this.to_datetime = moment(response.created_at).format(
             "YYYY-MM-DD HH:mm"
           )
           this.to_disabled_days = this.get_disable_dates(
             camera_id,
-            response.data.created_at
+            response.created_at
           )
         })
     },
 
     getCameras() {
-      axios
-        .get(process.env.API_URL + "cameras")
+      this.$axios
+        .$get(process.env.API_URL + "cameras")
         .then(response => {
-          let items = response.data.cameras
+          let items = response.cameras
           this.items = items
           this.selected = items[0]
           this.compare_images(this.selected.id)
@@ -934,8 +933,8 @@ export default {
           formData.append("watermark_logo", this.watermark_logo)
         }
 
-        axios
-          .post(process.env.API_URL + "timelapse", formData, {
+        this.$axios
+          .$post(process.env.API_URL + "timelapse", formData, {
             headers: {
               "Content-Type": "multipart/form-data"
             }

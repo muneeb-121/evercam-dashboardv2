@@ -332,7 +332,6 @@
 <script>
 import "video.js/dist/video-js.css"
 import { videoPlayer } from "vue-video-player"
-import axios from "axios"
 import moment from "moment"
 import VueCompareImage from "vue-compare-image"
 
@@ -409,9 +408,9 @@ export default {
       }
     }
   },
-  async asyncData({ params }) {
-    const keys = await axios.get(process.env.API_URL + "auth/credentials")
-    const archive = await axios.get(
+  async asyncData({ params, $axios }) {
+    const keys = await $axios.get(process.env.API_URL + "auth/credentials")
+    const archive = await $axios.get(
       process.env.API_URL + "cameras/" + params.id + "/archives/" + params.arid
     )
     return { archive: archive.data.archives[0], keys: keys.data }
@@ -435,10 +434,10 @@ export default {
     this.show_download = this.archive.type == "url" ? false : true
     this.show_share =
       !this.archive.public || this.archive.type == "url" ? false : true
-    axios
-      .get(`${process.env.API_URL}cameras/${this.$route.params.id}`)
+    this.$axios
+      .$get(`${process.env.API_URL}cameras/${this.$route.params.id}`)
       .then(response => {
-        this.has_edit_right = response.data.cameras[0].rights
+        this.has_edit_right = response.cameras[0].rights
           .split(",")
           .includes("edit")
       })
@@ -448,8 +447,8 @@ export default {
       var data = {
         public: this.is_public
       }
-      axios
-        .patch(
+      this.$axios
+        .$patch(
           `${process.env.API_URL}cameras/${this.$route.params.id}/archives/${this.archive.id}`,
           data
         )
@@ -477,8 +476,8 @@ export default {
         title: this.title,
         name: this.title
       }
-      axios
-        .delete(
+      this.$axios
+        .$delete(
           `${process.env.API_URL}cameras/${this.$route.params.id}/${controller}/${this.archive.id}`,
           data
         )
@@ -509,8 +508,8 @@ export default {
         title: this.title,
         name: this.title
       }
-      axios
-        .patch(
+      this.$axios
+        .$patch(
           `${process.env.API_URL}cameras/${this.$route.params.id}/${controller}/${this.archive.id}`,
           data
         )
@@ -552,7 +551,7 @@ export default {
       }
     },
     downloadItem(url) {
-      axios.get(url, { responseType: "blob" }).then(({ data }) => {
+      this.$axios.$get(url, { responseType: "blob" }).then(({ data }) => {
         const blob = new Blob([data])
         let extension = ""
         let link = document.createElement("a")
