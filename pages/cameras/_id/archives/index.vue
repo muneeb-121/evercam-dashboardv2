@@ -272,7 +272,6 @@
 </style>
 
 <script>
-import axios from "axios"
 import moment from "moment"
 const STATUS_INITIAL = 0,
   STATUS_SAVING = 1,
@@ -329,11 +328,11 @@ export default {
       return this.currentStatus === STATUS_FAILED
     }
   },
-  asyncData({ params, error }) {
-    return axios
-      .get(process.env.API_URL + `cameras/${params.id}/archives`)
+  asyncData({ params, error, $axios }) {
+    return $axios
+      .$get(`${process.env.API_URL}cameras/${params.id}/archives`)
       .then(res => {
-        return { archives: res.data.archives }
+        return { archives: res.archives }
       })
       .catch(() => {
         error({ statusCode: 404, message: "Post not found" })
@@ -417,8 +416,8 @@ export default {
       }
       formData.append("type", this.file_type)
 
-      axios
-        .post(
+      this.$axios
+        .$post(
           `${process.env.API_URL}cameras/${this.$route.params.id}/archives`,
           formData,
           {

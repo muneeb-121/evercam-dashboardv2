@@ -9,7 +9,9 @@ export default {
   env: {
     API_URL: process.env.API_URL,
     SOCKET_URL: process.env.SOCKET_URL,
-    GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY
+    GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
+    API_URL_V2: process.env.API_URL_V2,
+    TUS_URL: process.env.TUS_URL
   },
 
   head: {
@@ -48,6 +50,7 @@ export default {
   plugins: [
     "~/plugins/vuetify",
     { src: "~plugins/vimeo-player", ssr: false },
+    "~/plugins/axios",
     "@/plugins/google-maps"
   ],
   /*
@@ -59,13 +62,9 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    "@nuxtjs/dotenv"
+    "@nuxtjs/dotenv",
+    "@nuxtjs/axios"
   ],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {},
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

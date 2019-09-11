@@ -1,4 +1,4 @@
-# Static evercam dashboard
+# Static dashboard
 
 > Evercam User dashboard (Nuxt.js)
 
