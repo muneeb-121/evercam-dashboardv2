@@ -8,7 +8,8 @@ export default {
    */
   env: {
     API_URL: process.env.API_URL,
-    SOCKET_URL: process.env.SOCKET_URL
+    SOCKET_URL: process.env.SOCKET_URL,
+    GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY
   },
 
   head: {
@@ -44,7 +45,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/vuetify", { src: "~plugins/vimeo-player", ssr: false }],
+  plugins: [
+    "~/plugins/vuetify",
+    { src: "~plugins/vimeo-player", ssr: false },
+    "@/plugins/google-maps"
+  ],
   /*
    ** Nuxt.js dev-modules
    */
