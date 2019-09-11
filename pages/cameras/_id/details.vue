@@ -229,7 +229,6 @@
 </style>
 
 <script>
-  import axios from "axios"
   import { mapGetters } from "vuex"
 
   export default {
@@ -242,13 +241,13 @@
     computed: {
       ...mapGetters(["token"])
     },
-    async asyncData({ params, error }) {
-      return axios
+    async asyncData({ params, error, store, $axios }) {
+      return $axios
         .get(process.env.API_URL + `cameras/${params.id}`)
         .then(res => {
           return {
             camera: res.data.cameras[0],
-            thumbnail_url: `${res.data.cameras[0].thumbnail_url}?authorization=${axios.defaults.headers.common["Authorization"].replace("Bearer ", "")}`,
+            thumbnail_url: `${res.data.cameras[0].thumbnail_url}?authorization=${store.getters.token}`,
             center: { lat: res.data.cameras[0].location.lat, lng: res.data.cameras[0].location.lng },
             markers: [
               { position: { lat: res.data.cameras[0].location.lat, lng: res.data.cameras[0].location.lng } }
@@ -256,7 +255,7 @@
           }
         })
         .catch(() => {
-          error({ statusCode: 404, message: "Post not found" })
+          error({ statusCode: 404, message: "Camera not found." })
         })
     }
   };
