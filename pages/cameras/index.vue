@@ -139,17 +139,6 @@ export default {
         .catch(function(error) {
           console.log(error)
         })
-      this.channel = thumbnail_channel
-      this.items = myitems
-      this.exids = camera_exids
-      this.item_indexs = array_indexes
-      this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 300000)
-    },
-
-    refreshThumbnail() {
-      this.channel.push("thumbnail", {
-        body: this.exids.join()
-      })
       this.clearThumbnailTimeOut = setTimeout(this.refreshThumbnail, 300000)
     },
 

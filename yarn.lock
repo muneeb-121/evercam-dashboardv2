@@ -6101,6 +6101,11 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+marker-clusterer-plus@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/marker-clusterer-plus/-/marker-clusterer-plus-2.1.4.tgz#f8eff74d599dab3b7d0e3fed5264ea0e704f5d67"
+  integrity sha1-+O/3TVmdqzt9Dj/tUmTqDnBPXWc=
+
 matcher@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/matcher/-/matcher-2.0.0.tgz#85fe38d97670dbd2a46590cf099401e2ffb4755c"
@@ -10218,6 +10223,14 @@ vue-vimeo-player@^0.0.10:
   resolved "git://github.com/JoaoPedroAS51/vue2-datepicker.git#7d3ad97e3b3fce4db8907e9de75d12d727298412"
   dependencies:
     fecha "^2.3.3"
+
+vue2-google-maps@^0.10.7:
+  version "0.10.7"
+  resolved "https://registry.yarnpkg.com/vue2-google-maps/-/vue2-google-maps-0.10.7.tgz#2e4c1239386001bd47777d8c6a0475e5320cc3a8"
+  integrity sha512-y5aBJTAsfGvpsbfgPaeWU7o7QbOeINZKsP6SB9qrBe8U8EYBFO/bTWo3rcMq/NOtgT/XssV3Nwg/2u3no6jWbw==
+  dependencies:
+    babel-runtime "^6.26.0"
+    marker-clusterer-plus "^2.1.4"
 
 vue2-perfect-scrollbar@^1.2.1:
   version "1.2.1"

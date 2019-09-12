@@ -60,7 +60,7 @@ export const actions = {
     }
   },
 
-  async CAMERAS({ commit }, { token }) {
+  async CAMERAS({ commit }) {
     try {
       const data = await this.$axios.$get(`${process.env.API_URL}cameras`)
       commit("SET_CAMERAS", data)

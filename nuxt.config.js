@@ -9,6 +9,7 @@ export default {
   env: {
     API_URL: process.env.API_URL,
     SOCKET_URL: process.env.SOCKET_URL,
+    GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
     TUS_URL: process.env.TUS_URL
   },
 
@@ -50,6 +51,7 @@ export default {
     { src: "~plugins/vimeo-player", ssr: false },
     "~/plugins/axios",
     { src: "~plugins/vue-konva", ssr: false },
+    "@/plugins/google-maps"
   ],
   /*
    ** Nuxt.js dev-modules
