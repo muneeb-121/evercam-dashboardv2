@@ -374,22 +374,22 @@ export default {
       let url = ""
       switch (this.archive.type) {
         case "clip":
-          url = `${process.env.API_URL_V2}cameras/${this.$route.params.id}/archives/${this.$route.params.arid}.mp4?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
+          url = `${process.env.API_URL}cameras/${this.$route.params.id}/archives/${this.$route.params.arid}.mp4?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
           break
         case "compare":
-          url = `${process.env.API_URL_V2}cameras/${this.$route.params.id}/compares/${this.$route.params.arid}.mp4?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
+          url = `${process.env.API_URL}cameras/${this.$route.params.id}/compares/${this.$route.params.arid}.mp4?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
           break
         case "url":
           url = this.archive.media_url
           break
         case "edit":
-          url = `${process.env.API_URL_V2}cameras/${this.$route.params.id}/archives/${this.archive.file_name}?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
+          url = `${process.env.API_URL}cameras/${this.$route.params.id}/archives/${this.archive.file_name}?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
           break
         case "file":
-          url = `${process.env.API_URL_V2}cameras/${this.$route.params.id}/archives/${this.archive.file_name}?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
+          url = `${process.env.API_URL}cameras/${this.$route.params.id}/archives/${this.archive.file_name}?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
           break
         case "timelapse":
-          url = `${process.env.API_URL_V2}cameras/${this.$route.params.id}/timelapse/${this.$route.params.arid}/play?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
+          url = `${process.env.API_URL}cameras/${this.$route.params.id}/timelapse/${this.$route.params.arid}/play?api_id=${this.keys.api_id}&api_key=${this.keys.api_key}`
           break
       }
       return {
@@ -545,9 +545,9 @@ export default {
         this.clip_duration = diffMinutes
       }
       if (this.archive.type == "file" || this.archive.type == "edit") {
-        this.share_url = `${process.env.API_URL_V2}cameras/${this.$route.params.id}/archives/${this.archive.file_name}`
+        this.share_url = `${process.env.API_URL}cameras/${this.$route.params.id}/archives/${this.archive.file_name}`
       } else {
-        this.share_url = `${process.env.API_URL_V2}cameras/${this.$route.params.id}/archives/${this.archive.id}/play`
+        this.share_url = `${process.env.API_URL}cameras/${this.$route.params.id}/archives/${this.archive.id}/play`
       }
     },
     downloadItem(url) {
