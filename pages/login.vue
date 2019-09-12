@@ -99,7 +99,7 @@ export default {
       language: "en",
       sources: [
         {
-          type: "video/mp4",
+          type: "video/webm",
           src: require('~/static/gpoview.webm')
         }
       ]
