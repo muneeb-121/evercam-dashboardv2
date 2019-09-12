@@ -5,9 +5,9 @@
         <v-card class="card-style">
           <v-card-title>
             Camera Details
-            <nuxt-link class="edit-link" :to="'/'">
+            <v-btn class="edit-link" text @click="openCameraUpdate">
               EDIT
-            </nuxt-link>
+            </v-btn>
           </v-card-title>
           <v-card-text>
             <v-simple-table class="cameras-details">
@@ -68,9 +68,9 @@
 
           <v-card-title>
             URLs
-            <nuxt-link class="edit-link" :to="'/'">
+            <v-btn class="edit-link" text @click="openCameraUpdate">
               EDIT
-            </nuxt-link>
+            </v-btn>
           </v-card-title>
           <v-card-text>
             <v-simple-table class="cameras-details">
@@ -87,7 +87,7 @@
                 </tr>
                 <tr>
                   <td>Snapshot URL:</td>
-                  <td>{{ camera.external.http.jpg.replace(`${camera.external.http.camera}/`, "") }}</td>
+                  <td>{{ snapshot_url }}</td>
                 </tr>
                 <tr>
                   <td>H264 URL:</td>
@@ -141,9 +141,9 @@
         <v-card class="card-style">
           <v-card-title class="label">
             Location
-            <nuxt-link class="edit-link" :to="'/'">
+            <v-btn class="edit-link" text>
               EDIT
-            </nuxt-link>
+            </v-btn>
           </v-card-title>
           <v-card-text>
             <gmap-map :center="center" :map-type-id="mapTypeId" :zoom="14">
@@ -166,6 +166,66 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">
+            Cameras Details
+          </span>
+        </v-card-title>
+        <v-card-text>
+          <v-container class="model-container">
+            <v-row>
+              <v-col cols="8">
+                <v-text-field v-model="camera.name" label="Name*" required />
+                <v-select
+                  :items="vendors"
+                  item-value="id"
+                  item-text="name"
+                  label="Vendor"
+                  v-model="selectedVendor"
+                  @change="onSelectVendor"
+                >
+                </v-select>
+                <v-select
+                  v-model="selectedModel"
+                  :items="models"
+                  item-value="id"
+                  item-text="name"
+                  label="Model"
+                  @change="onSelectVendor"
+                >
+                </v-select>
+                <v-text-field v-model="camera.cam_username" label="Username" required />
+                <v-text-field v-model="camera.cam_password" label="Password" required />
+                <v-text-field v-model="snapshot_url" label="Snapshot URL" required />
+                <v-text-field v-model="rtsp_url" label="RTSP URL" required />
+              </v-col>
+              <v-col cols="4">
+                <v-img
+                  :src="testSnapshot"
+                  aspect-ratio="2"
+                />
+                <v-btn color="blue darken-1" text @click="doTestSnapshot">
+                  Test Snapshot
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <div class="flex-grow-1" />
+          <v-btn color="blue darken-1" text @click="dialog = false">
+            Close
+          </v-btn>
+          <v-btn color="blue darken-1" text @click="updateCamera">
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -222,9 +282,14 @@
   background-color: #fff;
   border-radius: 30px !important;
   border: 1px solid #428bca;
-  padding: 0 12px;
+  height: 28px !important;
+  padding: 0 10px;
   margin-left: 25px;
   text-decoration: none;
+}
+
+.model-container {
+  padding: 0 !important;
 }
 </style>
 
@@ -235,6 +300,10 @@
     name: "Details",
     data() {
       return {
+        dialog: false,
+        vendors: [],
+        models: [],
+        testSnapshot: "",
         mapTypeId: "terrain"
       }
     },
@@ -242,21 +311,59 @@
       ...mapGetters(["token"])
     },
     async asyncData({ params, error, store, $axios }) {
-      return $axios
-        .get(process.env.API_URL + `cameras/${params.id}`)
-        .then(res => {
-          return {
-            camera: res.data.cameras[0],
-            thumbnail_url: `${res.data.cameras[0].thumbnail_url}?authorization=${store.getters.token}`,
-            center: { lat: res.data.cameras[0].location.lat, lng: res.data.cameras[0].location.lng },
-            markers: [
-              { position: { lat: res.data.cameras[0].location.lat, lng: res.data.cameras[0].location.lng } }
-            ]
-          }
-        })
-        .catch(() => {
-          error({ statusCode: 404, message: "Camera not found." })
-        })
+      const { data } = await $axios.get(`${process.env.API_URL}cameras/${params.id}`)
+      let c = data.cameras[0]
+      return {
+        camera: c,
+        thumbnail_url: `${c.thumbnail_url}?authorization=${store.getters.token}`,
+        snapshot_url: c.external.http.jpg.replace(`${c.external.http.camera}/`, ''),
+        rtsp_url: c.external.rtsp.h264.replace(`rtsp://${c.external.host}:${c.external.rtsp.port}/`, ""),
+        center: { lat: c.location.lat, lng: c.location.lng },
+        markers: [
+          { position: { lat: c.location.lat, lng: c.location.lng } }
+        ],
+        selectedVendor: {name: c.vendor_name, id: c.vendor_id},
+        selectedModel: {name: c.model_name, id: c.model_id}
+      }
+    },
+    mounted() {
+      this.loadVendors()
+      this.loadModels("hikvision")
+    },
+    methods: {
+      async loadVendors() {
+        const { data } = await this.$axios.get(`${process.env.API_URL}vendors`)
+        this.vendors = data.vendors
+      },
+      async loadModels(vendor_id) {
+        const { data } = await this.$axios.get(`${process.env.API_URL}models?vendor_id=${vendor_id}&limit=300`)
+        this.models = data.models
+      },
+      async doTestSnapshot() {
+        let data = {
+          external_url: `http://${this.camera.external.host}:${this.camera.external.http.port}`,
+          jpg_url: this.snapshot_url,
+          cam_username: this.camera.cam_username,
+          cam_password: this.camera.cam_password,
+          vendor_id: "hikvision",
+          camera_exid: this.camera.id
+        }
+        try {
+          let response = await this.$axios.post(`${process.env.API_URL}cameras/test`, data)
+          this.testSnapshot = response.data.data
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      openCameraUpdate() {
+        this.dialog = !this.dialog
+      },
+      onSelectVendor(data) {
+
+      },
+      updateCamera() {
+        console.log(this.snapshot_url)
+      }
     }
   };
 </script>
