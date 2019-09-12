@@ -9,7 +9,6 @@ export default {
   env: {
     API_URL: process.env.API_URL,
     SOCKET_URL: process.env.SOCKET_URL,
-    API_URL_V2: process.env.API_URL_V2,
     TUS_URL: process.env.TUS_URL
   },
 
@@ -30,7 +29,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: "#fff" },
+  loading: { color: "#004BEF" },
   /*
    ** Global CSS
    */
@@ -50,6 +49,7 @@ export default {
     "~/plugins/vuetify",
     { src: "~plugins/vimeo-player", ssr: false },
     "~/plugins/axios",
+    { src: "~plugins/vue-konva", ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules

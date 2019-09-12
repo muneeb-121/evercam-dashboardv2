@@ -739,6 +739,46 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.10.2.tgz#27e02da1e34b50c9869179d364fb46627b521130"
   integrity sha512-9pw+Nsnunl9unstGEHQ+u41wBEQue6XPBsILXtJF/4fNN1L3avJcMF/gGF86rIjeTAgfLjTY9ndm68/X4f4idQ==
 
+"@fullcalendar/core@^4.3.1", "@fullcalendar/core@~4.3.0":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/core/-/core-4.3.1.tgz#a061c6d2e998d4155439dbc8aefdfe01cdf648d8"
+  integrity sha512-Eh+p/wpMkWGu26f8NpfQK9ecQMoZxX/aopv+0+4/CH+Ip0paP6iEc40JYgTz7RFl0bFqV1dvwyGyUZ4+9ZeySA==
+
+"@fullcalendar/daygrid@^4.3.0", "@fullcalendar/daygrid@~4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/daygrid/-/daygrid-4.3.0.tgz#1b4ab9fdc238dba77921cb7c5bd2d813c834e905"
+  integrity sha512-OrGaRIGbELESOXOCXtoQVY4cOxnxmN7OrjDGbMoVITdoXWuIZ6sFNO84WcBQoRaIbkmqVM0SAU2MENwy+eEwqQ==
+
+"@fullcalendar/interaction@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/interaction/-/interaction-4.3.0.tgz#a52d22e4fa2666d5032c77afde75ecfad95c0f3b"
+  integrity sha512-kaKV+tdgH/oIrwTSMGYFec989L5r+KMYJ9ybwLc8G3LbMVcebo8fAlN9VizmGQAuopKfyvOw8yzJdjfmVCCRYQ==
+
+"@fullcalendar/list@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/list/-/list-4.3.0.tgz#b2523e54db0fd4cd44f7e93d72353d649c529dd7"
+  integrity sha512-Al+XaKynC4RsJpXyWOWJgrVQXFOSC+fg8DI4HGAt/mrrwazZ1L0pTQwCLeU8auZp53VFazCiNxV+jkAbuDdbDQ==
+
+"@fullcalendar/moment@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/moment/-/moment-4.3.0.tgz#7db57cc9a1d11055974c42388fab16bfa523d74c"
+  integrity sha512-Ek+wJL+PcLpBddrOoIFLGnqsp1LG5Jm6lWeqA37sKvTwx/02IgZsHzx+lrhzR6l1JTFmtAfuANQeYdYYjVor1Q==
+
+"@fullcalendar/timegrid@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/timegrid/-/timegrid-4.3.0.tgz#bf003499319e5e66135bb7b8d8ed274b1a62ca91"
+  integrity sha512-9JCSZbzw2Hi+X893l5X9ViZaWjxh+sDy59o6nKx0gYKwSfs/vKpmk73GBQfKyUv8orkjpnTdPFfeLDZqlzBP4Q==
+  dependencies:
+    "@fullcalendar/daygrid" "~4.3.0"
+
+"@fullcalendar/vue@^4.3.1":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/vue/-/vue-4.3.1.tgz#7a2fab995c46aefb27394eadc24afb23d56edf42"
+  integrity sha512-yrQfYJErh/K5+Ud0rsUjMHxZz6iWuYcJvpE9QgjfQOdzUhN4CKjrqO8ivNuawGD3+mQSV4jPlJ+HJ5Qy/nfSYA==
+  dependencies:
+    "@fullcalendar/core" "~4.3.0"
+    fast-deep-equal "^2.0.1"
+
 "@nodelib/fs.scandir@2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.1.tgz#7fa8fed654939e1a39753d286b48b4836d00e0eb"
@@ -3436,6 +3476,13 @@ dom-walk@^0.1.0:
   resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
   integrity sha1-ZyIm3HTI95mtNTB9+TaroRrNYBg=
 
+dom7@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/dom7/-/dom7-2.1.3.tgz#a736f9c3bfbc4ca039a81cd095f97d1d7f3de19c"
+  integrity sha512-QTxHHDox+M6ZFz1zHPAHZKI3JOHY5iY4i9BK2uctlggxKQwRhO3q3HHFq1BKsT25Bm/ySSj70K6Wk/G4bs9rMQ==
+  dependencies:
+    ssr-window "^1.0.1"
+
 domain-browser@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
@@ -5687,6 +5734,11 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
   integrity sha512-s5kLOcnH0XqDO+FvuaLX8DDjZ18CGFk7VygH40QoKPUQhW4e2rvM0rwUq0t8IQDOwYSeLK01U90OjzBTme2QqA==
 
+konva@^4.0.9:
+  version "4.0.9"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-4.0.9.tgz#0f90d8aa067d74c4ffe2887a13465b9230c98f06"
+  integrity sha512-ON2zKhMjdNGFT2H92rR6fowagfXz/1X1tfx/LqgNB1UVuaB6HIhFSLBhGoLem7psxUaKOHAO5g1Hlp1vdOXrJg==
+
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/last-call-webpack-plugin/-/last-call-webpack-plugin-3.0.0.tgz#9742df0e10e3cf46e5c0381c2de90d3a7a2d7555"
@@ -6649,6 +6701,13 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
+nuxt-validate@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/nuxt-validate/-/nuxt-validate-1.0.1.tgz#a493aa0dadad7b7f6b156aba8d609f8e01a6ae98"
+  integrity sha512-bapuCMxQkpQpTkM5wCRhN/qcLpU7Pxlg3c33rA1kstafa3KsCEQ4uEBYSrTbzTCL8HjyihBdJp7P11M8zaWjAw==
+  dependencies:
+    vee-validate "^2.1.2"
+
 nuxt@^2.9.2:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.9.2.tgz#3c190fe79dcb00550029d065bb9505caffd02bbb"
@@ -7187,6 +7246,11 @@ pn@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
+
+popper.js@^1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.15.0.tgz#5560b99bbad7647e9faa475c6b8056621f5a4ff2"
+  integrity sha512-w010cY1oCUmI+9KwwlWki+r5jxKfTFDVoadl7MSrIujHU5MJ5OR6HTDj6Xo8aoR/QsA56x8jKjA59qGH4ELtrA==
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
@@ -8893,6 +8957,11 @@ sshpk@^1.7.0:
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
 
+ssr-window@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-1.0.1.tgz#30752a6a4666e7767f0b7e6aa6fc2fdbd0d9b369"
+  integrity sha512-dgFqB+f00LJTEgb6UXhx0h+SrG50LJvti2yMKMqAgzfUmUXZrLSv2fjULF7AWGwK25EXu8+smLR3jYsJQChPsg==
+
 ssri@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.1.tgz#2a3c41b28dd45b62b63676ecb74001265ae9edd8"
@@ -9178,6 +9247,14 @@ svgo@^1.0.0:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+swiper@^4.0.7:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-4.5.0.tgz#4d870bec4f5abe2fb259325849dd2641c9243c0d"
+  integrity sha512-jRCd/CGet9kaHwthHdd/sL/YU8CI157PWLyItnIcn/o/jP4haVky3zTF6f9F3JDpmQIw7jdWihISiYx0/oTHsg==
+  dependencies:
+    dom7 "^2.1.3"
+    ssr-window "^1.0.1"
 
 symbol-observable@^1.0.4:
   version "1.2.0"
@@ -9831,6 +9908,11 @@ vary@^1.1.2, vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
+vee-validate@^2.1.2:
+  version "2.2.15"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-2.2.15.tgz#dc6c925d21e57288d3308fe5a39a0941036c575a"
+  integrity sha512-4TOsI8XwVkKVLkg8Nhmy+jyoJrR6XcTRDyxBarzcCvYzU61zamipS1WsB6FlDze8eJQpgglS4NXAS6o4NDPs1g==
+
 vendors@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.3.tgz#a6467781abd366217c050f8202e7e50cc9eef8c0"
@@ -9953,6 +10035,19 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
 
+vue-awesome-swiper@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/vue-awesome-swiper/-/vue-awesome-swiper-3.1.3.tgz#05500b501ffb3fec9bf7eb9985bcf4ae8360ed9e"
+  integrity sha512-E7suzkyApO8vNZbgdEnjSmnpsmQZyRvSVXJ7sey3XYwKPOkLhH3+GnHroBw+5PZIQXvWBwdCeQsPG1xQ1r1Rhg==
+  dependencies:
+    object-assign "^4.1.1"
+    swiper "^4.0.7"
+
+vue-class-component@^7.0.1:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.1.0.tgz#b33efcb10e17236d684f70b1e96f1946ec793e87"
+  integrity sha512-G9152NzUkz0i0xTfhk0Afc8vzdXxDR1pfN4dTwE72cskkgJtdXfrKBkMfGvDuxUh35U500g5Ve4xL8PEGdWeHg==
+
 vue-client-only@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/vue-client-only/-/vue-client-only-2.0.0.tgz#ddad8d675ee02c761a14229f0e440e219de1da1c"
@@ -10010,6 +10105,11 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.3.tgz#2756f46cb3258054c5f4723de8ae7e87302a1ccf"
   integrity sha512-KmvZVtmM26BQOMK1rwUZsrqxEGeKiYSZGA7SNWE6uExx8UX/cj9hq2MRV/wWC3Cq6AoeDGk57rL9YMFRel/q+g==
 
+vue-konva@^2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/vue-konva/-/vue-konva-2.0.9.tgz#ef9c01beaea0cf803be5c727ce27310c50a252ec"
+  integrity sha512-LdoeTGvoF2afMlk8Ly4vi9Bx00qiaPOnRyVoI++4NiFU/G0a6IHB2XQSiP/YxTYEBb8rmm3AaTiFyX4Fhfztcg==
+
 vue-loader@^15.7.1:
   version "15.7.1"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-15.7.1.tgz#6ccacd4122aa80f69baaac08ff295a62e3aefcfd"
@@ -10033,6 +10133,20 @@ vue-no-ssr@^1.1.1:
   resolved "https://registry.yarnpkg.com/vue-no-ssr/-/vue-no-ssr-1.1.1.tgz#875f3be6fb0ae41568a837f3ac1a80eaa137b998"
   integrity sha512-ZMjqRpWabMPqPc7gIrG0Nw6vRf1+itwf0Itft7LbMXs2g3Zs/NFmevjZGN1x7K3Q95GmIjWbQZTVerxiBxI+0g==
 
+vue-popperjs@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/vue-popperjs/-/vue-popperjs-2.1.0.tgz#5dbf5eb053c754c8c9b11a31261aa0e0006b2bd4"
+  integrity sha512-LfcMfndjzDBHUaQhXpck1qlhXgsz8EpE56SHBQOVkeia2xFyxv7opoGzvxdcZKhfb9viZFj58oGWzE76yX73QA==
+  dependencies:
+    popper.js "^1.15.0"
+
+vue-property-decorator@^8.0.0:
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/vue-property-decorator/-/vue-property-decorator-8.2.2.tgz#ac895e9508ee1bf86e3a28568d94d842c2c8e42f"
+  integrity sha512-3gRrIeoUtjXvkoMX2stJsVs7805Pa9MXEndnk21ej+sWO7AIc5HF1TKqK0Pox5TEjpO02UbadIF0QWNrx6ZwXQ==
+  dependencies:
+    vue-class-component "^7.0.1"
+
 vue-router@~3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.7.tgz#b36ca107b4acb8ff5bc4ff824584059c23fcb87b"
@@ -10051,6 +10165,13 @@ vue-server-renderer@^2.6.10:
     resolve "^1.2.0"
     serialize-javascript "^1.3.0"
     source-map "0.5.6"
+
+vue-slider-component@^3.0.40:
+  version "3.0.40"
+  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-3.0.40.tgz#f8eb0ae2d4d8c63f7b767e2ae7a316449a88958c"
+  integrity sha512-8obhszDPC34b43h/dd0Gh+oQmUD402X+yo129K3m1EiqAlQ5Imr12XAOQ+RcwCKSOLigLW/flZ0H3dvmhk2ZWQ==
+  dependencies:
+    vue-property-decorator "^8.0.0"
 
 vue-style-loader@^4.1.0:
   version "4.1.2"
@@ -10072,11 +10193,6 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
-
-vue-video-background@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/vue-video-background/-/vue-video-background-0.1.2.tgz#6149a30dbbf34a2d01ea009b0c951783055387b8"
-  integrity sha512-0iW0GTzGXWKv1uoGoW228pUSlQjLeU5W0DWjB8rp0BFV8COkWk4rKjL9cTZkHkcHD0U70EPwYzwSxP8CarHMng==
 
 vue-video-player@^5.0.2:
   version "5.0.2"

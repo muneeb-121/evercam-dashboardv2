@@ -7,7 +7,7 @@
       color="primary"
       indeterminate
       class="loading"
-    ></v-progress-circular>
+    />
     <v-img
       v-else
       :src="url"

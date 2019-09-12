@@ -28,6 +28,9 @@
       <v-tab :to="'/cameras/' + route + '/creator'" nuxt>
         Time-lapse Creator
       </v-tab>
+      <v-tab :to="'/cameras/' + route + '/creatorv3'" nuxt>
+        Time-lapse Creator v3
+      </v-tab>
     </v-tabs>
   </v-sheet>
 </template>
