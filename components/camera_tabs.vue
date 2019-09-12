@@ -1,5 +1,5 @@
 <template>
-  <v-sheet elevation="6">
+  <v-sheet class="tabs" elevation="6">
     <v-tabs>
       <v-tab :to="'/cameras/' + route" nuxt>
         Live View
@@ -31,6 +31,12 @@
     </v-tabs>
   </v-sheet>
 </template>
+
+<style scoped>
+.tabs {
+  border-radius: 0 !important;
+}
+</style>
 
 <script>
 export default {

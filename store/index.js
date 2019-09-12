@@ -48,8 +48,10 @@ export const actions = {
         config
       )
 
-      this.$axios.setToken(data.token, 'Bearer')
-      const cameras_json = await this.$axios.$get(`${process.env.API_URL}cameras`)
+      this.$axios.setToken(data.token, "Bearer")
+      const cameras_json = await this.$axios.$get(
+        `${process.env.API_URL}cameras`
+      )
       commit("SET_USER", data)
       commit("SET_CAMERAS", cameras_json)
       this.app.router.push("/cameras")
@@ -58,7 +60,7 @@ export const actions = {
     }
   },
 
-  async CAMERAS({ commit }, { token }) {
+  async CAMERAS({ commit }) {
     try {
       const data = await this.$axios.$get(`${process.env.API_URL}cameras`)
       commit("SET_CAMERAS", data)

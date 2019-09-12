@@ -12,7 +12,7 @@
       <v-list-group value="true">
         <template v-slot:activator>
           <v-list-item-content>
-            <v-list-item-title class="nav-label">
+            <v-list-item-title class="nav-label subtitle-1">
               <v-img
                 :src="require('~/static/favicon.png')"
                 alt="Evercam Logo"
@@ -40,7 +40,7 @@
               fas fa-circle
             </v-icon>
             <v-list-item-title
-              class="title-text"
+              class="title-text caption"
               :class="{ 'camera-opacity': item.camera_offline }"
               :title="item.offline_reason"
               v-text="item.title"
@@ -124,7 +124,6 @@
 }
 
 .title-text {
-  font-size: 13px !important;
   font-weight: normal !important;
   flex-grow: unset;
   flex-basis: auto;
@@ -139,7 +138,6 @@
 
 .nav-label {
   color: #fff;
-  font-size: 16px !important;
   padding-top: 5px;
 }
 

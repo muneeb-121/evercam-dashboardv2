@@ -4,7 +4,9 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <vue-video-background
-            :videoSrcWebm="require('~/static/gpoview-fde8175f0ccf966c50d96872621116a7321fbd0fb1698060e232c70b95cd6107.webm')"
+            :video-src-webm="
+              require('~/static/gpoview-fde8175f0ccf966c50d96872621116a7321fbd0fb1698060e232c70b95cd6107.webm')
+            "
           />
           <v-flex xs12 sm8 md4 lg3>
             <v-card class="elevation-1 pa-3">
