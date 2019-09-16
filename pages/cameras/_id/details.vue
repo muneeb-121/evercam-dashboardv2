@@ -334,14 +334,13 @@
                 <v-text-field
                   v-model="camera.cam_username"
                   label="Username"
-                  class="caption col-6 text-field-left"
-                  width="100px"
+                  class="caption col-6 text-field-left width-half"
                   required
                 />
                 <v-text-field
                   v-model="camera.cam_password"
                   label="Password"
-                  class="caption col-6 text-field-right"
+                  class="caption col-6 text-field-right width-half"
                   required
                 />
                 <v-text-field
@@ -369,20 +368,19 @@
                 <v-text-field
                   v-model="camera.external.http.port"
                   label="VH HTTP Port"
-                  class="caption col-4 text-field-left"
-                  width="100px"
+                  class="caption col-4 text-field-left width-quarter"
                   required
                 />
                 <v-text-field
                   v-model="camera.external.http.nvr_port"
                   label="NVR HTTP Port"
-                  class="caption col-4 text-field-left"
+                  class="caption col-4 text-field-left width-quarter"
                   required
                 />
                 <v-text-field
                   v-model="camera.external.rtsp.port"
                   label="RTSP Port"
-                  class="caption col-4 text-field-right"
+                  class="caption col-4 text-field-right width-quarter"
                   required
                 />
 
@@ -442,6 +440,14 @@
   background-color: #fff;
   color: #000;
   padding-right: 24px;
+}
+
+.width-half {
+  max-width: 50% !important;
+}
+
+.width-quarter {
+  max-width: 33.3333333333% !important;
 }
 
 .label {
