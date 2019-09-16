@@ -1,5 +1,5 @@
-export default function ({ store, app: { $axios } }) {
+export default function({ store, app: { $axios } }) {
   if (store.getters.token) {
-    $axios.setToken(store.getters.token, 'Bearer')
+    $axios.setToken(store.getters.token, "Bearer")
   }
 }

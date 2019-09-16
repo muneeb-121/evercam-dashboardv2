@@ -1,5 +1,5 @@
 <template>
-  <v-sheet elevation="6">
+  <v-sheet class="tabs" elevation="6">
     <v-tabs>
       <v-tab :to="'/cameras/' + route" nuxt>
         Live View
@@ -28,9 +28,18 @@
       <v-tab :to="'/cameras/' + route + '/creator'" nuxt>
         Time-lapse Creator
       </v-tab>
+      <v-tab :to="'/cameras/' + route + '/creatorv3'" nuxt>
+        Time-lapse Creator v3
+      </v-tab>
     </v-tabs>
   </v-sheet>
 </template>
+
+<style scoped>
+.tabs {
+  border-radius: 0 !important;
+}
+</style>
 
 <script>
 export default {

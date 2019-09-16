@@ -3,10 +3,10 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <vue-video-background
-            :video-src-mp4="
-              require('~/static/gpoview-a756f65192d97eb7c27d054296cd84fa4d2c41707d8c8ad1a579690cfb66e093.mp4')
-            "
+          <video-player
+            ref="videoPlayer"
+            class="video-player-box"
+            :options="playerOptions"
           />
           <v-flex xs12 sm8 md4 lg3>
             <v-card class="elevation-1 pa-3">
@@ -63,24 +63,47 @@
   top: 0;
   left: 0;
   content: "";
-  z-index: 0;
+  z-index: 1;
   height: 100%;
   overflow-y: hidden !important;
   overflow-x: hidden !important;
+}
+
+.video-player-box {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+
 }
 </style>
 
 <script>
 import { mapActions } from "vuex"
-import VueVideoBackground from "vue-video-background"
+import "video.js/dist/video-js.css"
+import { videoPlayer } from "vue-video-player"
 
 export default {
   layout: "clean",
   middleware: "unauth",
   components: {
-    VueVideoBackground
+    videoPlayer
   },
   data: () => ({
+    playerOptions: {
+      height: "360",
+      muted: true,
+      autoplay: true,
+      controls: false,
+      loop: true,
+      fluid: true,
+      language: "en",
+      sources: [
+        {
+          type: "video/mp4",
+          src: require('~/static/gpoview-a756f65192d97eb7c27d054296cd84fa4d2c41707d8c8ad1a579690cfb66e093.mp4')
+        }
+      ]
+    },
     loading: false,
     model: {
       username: "",
@@ -92,7 +115,6 @@ export default {
     preformLogin() {
       const form = this.model
       this.login({ form })
-      // this.cameras()
     }
   }
 }

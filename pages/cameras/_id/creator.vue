@@ -1,10 +1,12 @@
 <template>
   <v-layout class="pa-5" align-center justify-center>
-    <v-img
+    <v-progress-circular
       v-if="ajaxWait"
-      class="text-xs-center buttons"
-      :src="require('~/static/loading.gif')"
-      alt="Evercam Logo"
+      :size="80"
+      :width="7"
+      color="primary"
+      indeterminate
+      class="loading"
     />
     <v-expansion-panels v-else popout focusable>
       <v-expansion-panel active-class>
@@ -540,7 +542,7 @@ export default {
           .format("YYYY-MM-DDTHH:mm:ss.000+00:00")
         this.$axios
           .$get(
-              process.env.API_URL + 
+            process.env.API_URL +
               "cameras/" +
               this.selected.id +
               "/recordings/snapshots/" +
@@ -571,7 +573,7 @@ export default {
           .format("YYYY-MM-DDTHH:mm:ss.000+00:00")
         this.$axios
           .$get(
-              process.env.API_URL + 
+            process.env.API_URL +
               "cameras/" +
               this.selected.id +
               "/recordings/snapshots/" +
@@ -588,10 +590,12 @@ export default {
   },
 
   mounted() {
-    this.$axios.$get(process.env.API_URL + "auth/credentials").then(response => {
-      this.api_key = response.api_key
-      this.api_id = response.api_id
-    })
+    this.$axios
+      .$get(process.env.API_URL + "auth/credentials")
+      .then(response => {
+        this.api_key = response.api_key
+        this.api_id = response.api_id
+      })
     this.getCameras()
     //this.editTitle()
   },
@@ -663,7 +667,7 @@ export default {
       let disabled_days_value = []
       this.$axios
         .$get(
-            process.env.API_URL + 
+          process.env.API_URL +
             "cameras/" +
             camera_id +
             "/recordings/snapshots/" +
@@ -694,7 +698,7 @@ export default {
       let disabled_hours_value = []
       this.$axios
         .$get(
-            process.env.API_URL + 
+          process.env.API_URL +
             "cameras/" +
             camera_id +
             "/recordings/snapshots/" +
@@ -736,7 +740,7 @@ export default {
     compare_images(camera_id) {
       this.$axios
         .$get(
-            process.env.API_URL + 
+          process.env.API_URL +
             "cameras/" +
             camera_id +
             "/recordings/snapshots/oldest"
@@ -753,7 +757,7 @@ export default {
         })
       this.$axios
         .$get(
-            process.env.API_URL +
+          process.env.API_URL +
             "cameras/" +
             camera_id +
             "/recordings/snapshots/latest"
