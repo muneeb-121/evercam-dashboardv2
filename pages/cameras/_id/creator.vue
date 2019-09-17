@@ -21,9 +21,50 @@
       />
     </div>
     <v-row style="height: 100%;width: 100%">
-      <v-col cols="9">
+      <v-col cols="12" class="pt-0 pb-0" style="padding-left: 150px; padding-right: 150px">
         <v-row style="max-widht: 100%">
-          <v-col cols="12">
+          <v-col cols="12" class="pb-0 stage-container">
+            <vue-ctk-date-time-picker
+              id="from_datetime2"
+              v-model="from_datetime2"
+              class="datetime-picker pa-4"
+              format="YYYY-MM-DD HH:mm"
+              button-color="#68a2d5"
+              color="#68a2d5"
+              :disabled-dates="from_disabled_days"
+              :disabled-hours="from_disabled_hours"
+              :no-value-to-custom-elem="true"
+              @validate="changeDate"
+              no-button-now
+              no-shortcuts
+              no-header
+              no-label
+            >
+              <v-btn color="primary">
+                <v-icon>fas fa-calendar-alt</v-icon>&nbsp; First frame
+              </v-btn>
+            </vue-ctk-date-time-picker>
+            <vue-ctk-date-time-picker
+              id="to_datetime2"
+              v-model="to_datetime2"
+              class="datetime-picker pa-4 float-right"
+              format="YYYY-MM-DD HH:mm"
+              button-color="#68a2d5"
+              color="#68a2d5"
+              :disabled-dates="to_disabled_days"
+              :disabled-hours="to_disabled_hours"
+              @validate="changeDate"
+              no-button-now
+              right
+              :no-value-to-custom-elem="true"
+              no-shortcuts
+              no-header
+              no-label
+            >
+              <v-btn color="primary" class="float-right">
+                <v-icon>fas fa-calendar-alt</v-icon>&nbsp; Last frame
+              </v-btn>
+            </vue-ctk-date-time-picker>
             <v-stage ref="stage" :config="configKonva">
               <v-layer ref="layer">
                 <v-image :config="configImage" />
@@ -45,209 +86,214 @@
               </v-layer>
             </v-stage>
           </v-col>
-          <v-col cols="12">
-            <swiper
-              ref="mySwiper"
-              :options="swiperOption"
-              class="my-swiper"
-              @slideChange="getSlides"
-            >
-              <swiper-slide v-for="(slide, index) in slides" :key="index" class="swiper-slide">
-                <img :src="slide" class="swiper-img" style="max-width: 100%">
-              </swiper-slide>
-              <!-- <div slot="button-prev" class="swiper-button-prev" />
-              <div slot="button-next" class="swiper-button-next" /> -->
-            </swiper>
+          <v-col cols="12" class="pt-0">
+            <v-row class="pl-2 pr-1">
+              <v-col
+                cols="1.2"
+                class="pr-1 pl-1"
+                v-for="imageIndex in [0,1,2,3,4,5,6,7,8,9]"
+                :key="imageIndex"
+                @click="index = imageIndex; getSlides()">
+                <img v-if="slides[imageIndex]" :src="slides[imageIndex]" :class="{highlight:imageIndex == index}" style="max-width: 100%" >
+                <div
+                  v-else
+                  class="fill-height ma-0"
+                  align="center"
+                  justify="center"
+                >
+                  <v-progress-circular
+                    :size="20"
+                    :width="2"
+                    color="primary"
+                    indeterminate
+                  />
+                </div>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
-      </v-col>
-      <v-col cols="3">
-        <v-tabs
-          slot="extension"
-          v-model="tabs"
-          class="elevation-2"
-          dark
-          :centered="true"
-          :grow="true"
-          :right="true"
-        >
-          <v-tab
-            v-for="item in ['Basic', 'Schedule', 'Advanced']"
-            :key="item"
-          >
-            {{ item }}
-          </v-tab>
-        </v-tabs>
-        <v-tabs-items v-model="tabs">
-          <v-tab-item>
-            <v-card flat tile>
-              <v-card-text>
-                <v-row>
-                  <v-col cols="12">
-                    <ValidationProvider name="Title" rules="required">
-                      <v-text-field
-                        slot-scope="{ errors }"
-                        :error-messages="errors"
-                        label="Title"
-                        required
-                        v-model="title"
-                        type="text"/>
-                    </ValidationProvider>
-                  </v-col>
-                </v-row>
-                <p class="font-weight-bold">First frame</p>
-                <vue-ctk-date-time-picker
-                  id="from_datetime2"
-                  v-model="from_datetime2"
-                  class="datetime-picker"
-                  format="YYYY-MM-DD HH:mm"
-                  button-color="#68a2d5"
-                  color="#68a2d5"
-                  :disabled-dates="from_disabled_days"
-                  :disabled-hours="from_disabled_hours"
-                  @validate="changeDate"
-                  no-button-now
-                  right
-                  no-shortcuts
-                  no-header
-                  no-label
-                />
-                <p class="font-weight-bold pt-4">Last frame</p>
-                <vue-ctk-date-time-picker
-                  id="to_datetime2"
-                  v-model="to_datetime2"
-                  class="datetime-picker"
-                  format="YYYY-MM-DD HH:mm"
-                  button-color="#68a2d5"
-                  color="#68a2d5"
-                  :disabled-dates="to_disabled_days"
-                  :disabled-hours="to_disabled_hours"
-                  @validate="changeDate"
-                  no-button-now
-                  right
-                  no-shortcuts
-                  no-header
-                  no-label
-                />
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
+        <v-row>
+          <v-col cols="5" class="pt-0">
+            <ValidationProvider name="Title" rules="required">
+              <v-text-field
+                slot-scope="{ errors }"
+                :error-messages="errors"
+                label="Title"
+                required
+                v-model="title"
+                type="text"/>
+            </ValidationProvider>
+          </v-col>
+          <v-col cols="4" class="pt-0 float-right">
+            <v-dialog
+              v-model="dialog"
+              width="500"
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  color="primary"
+                  text
+                  v-on="on"
+                  class="float-right"
+                >
+                  <v-icon>fas fa-cogs</v-icon> &nbsp; Customize
+                </v-btn>
+              </template>
 
-          <v-tab-item>
-            <v-card flat tile>
-              <v-card-text>
-                <v-row justify="space-around" no-gutters>
-                  <v-col class="d-flex" cols="12" sm="12">
-                    <v-select
-                      v-model="schedule_type"
-                      :items="op_schedule"
-                      :item-value="op_schedule.value"
-                      label="Restrict Hours Per Day"
-                    />
-                  </v-col>
+              <v-card>
+                <v-card-text>
+                  <v-tabs
+                    slot="extension"
+                    v-model="tabs"
+                    class="elevation-2"
+                    dark
+                    :centered="true"
+                    :grow="true"
+                    :right="true"
+                  >
+                    <v-tab
+                      v-for="item in ['Schedule', 'Advanced']"
+                      :key="item"
+                    >
+                      {{ item }}
+                    </v-tab>
+                  </v-tabs>
+                  <v-tabs-items v-model="tabs">
+                    <v-tab-item>
+                      <v-card flat tile height="699">
+                        <v-card-text>
+                          <v-row justify="space-around" no-gutters>
+                            <v-col class="d-flex" cols="12" sm="12">
+                              <v-select
+                                v-model="schedule_type"
+                                :items="op_schedule"
+                                :item-value="op_schedule.value"
+                                label="Restrict Hours Per Day"
+                              />
+                            </v-col>
 
-                  <v-col class="d-flex" cols="12" sm="12">
-                    <FullCalendar
-                      ref="fullCalendar"
-                      :plugins="plugins"
-                      :axisFormat="axisFormat"
-                      :defaultView="defaultView"
-                      :allDaySlot="allDaySlot"
-                      :slotDuration="slotDuration"
-                      :columnFormat="columnFormat"
-                      :columnHeaderFormat="columnHeaderFormat"
-                      :defaultDate="defaultDate"
-                      :dayNamesShort="dayNamesShort"
-                      :eventLimit="eventLimit"
-                      :eventOverlap="eventOverlap"
-                      :eventColor="eventColor"
-                      :firstDay="firstDay"
-                      :height="height"
-                      :selectHelper="selectHelper"
-                      :selectable="selectable"
-                      :timezone="timezone"
-                      :header="header"
-                      :editable="editable"
-                      :events="events"
-                      @select="selectCalendar"
-                      @eventClick="clickCalendar"
-                      @eventDrop="dropCalendar"
-                      @eventResize="resizeCalendar"
-                    />
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
+                            <v-col class="d-flex" cols="12" sm="12">
+                              <FullCalendar
+                                ref="fullCalendar"
+                                :plugins="plugins"
+                                :axisFormat="axisFormat"
+                                :defaultView="defaultView"
+                                :allDaySlot="allDaySlot"
+                                :slotDuration="slotDuration"
+                                :columnFormat="columnFormat"
+                                :columnHeaderFormat="columnHeaderFormat"
+                                :defaultDate="defaultDate"
+                                :dayNamesShort="dayNamesShort"
+                                :eventLimit="eventLimit"
+                                :eventOverlap="eventOverlap"
+                                :eventColor="eventColor"
+                                :firstDay="firstDay"
+                                :height="height"
+                                :selectHelper="selectHelper"
+                                :selectable="selectable"
+                                :timezone="timezone"
+                                :header="header"
+                                :editable="editable"
+                                :events="events"
+                                @select="selectCalendar"
+                                @eventClick="clickCalendar"
+                                @eventDrop="dropCalendar"
+                                @eventResize="resizeCalendar"
+                              />
+                            </v-col>
+                          </v-row>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
 
-          <v-tab-item>
-            <v-card flat tile>
-              <v-card-text>
-                <v-row justify="space-around" no-gutters>
-                  <v-col class="d-flex" cols="12" sm="12">
-                    <v-file-input v-model="watermark_logo" label="Logo" prepend-icon="mdi-camera" @change="addLogo"/>
-                  </v-col>
+                    <v-tab-item>
+                      <v-card flat tile height="699">
+                        <v-card-text>
+                          <v-row justify="space-around" no-gutters>
+                            <v-col class="d-flex" cols="12" sm="12">
+                              <v-file-input v-model="watermark_logo" label="Logo" prepend-icon="mdi-camera" @change="addLogo" accept="image/*"/>
+                            </v-col>
 
-                  <v-col class="d-flex" cols="12" sm="12">
-                    <v-select
-                      v-model="format"
-                      :items="op_format"
-                      :item-value="op_format.value"
-                      label="Format"
-                    />
-                  </v-col>
+                            <v-col class="d-flex" cols="12" sm="12">
+                              <v-select
+                                v-model="format"
+                                :items="op_format"
+                                :item-value="op_format.value"
+                                label="Format"
+                              />
+                            </v-col>
 
-                  <v-col class="d-flex" cols="12" sm="12">
-                    <v-select
-                      v-model="duration"
-                      :items="format == 'mp4' ? op_duration : op_duration_gif"
-                      label="Duration"
-                    />
-                  </v-col>
-                  <v-col class="d-flex" cols="12" sm="12">
-                    <v-text-field
-                      v-if="duration === '0'"
-                      v-model="custom_duration"
-                      label="Custom Duration"
-                      type="number"
-                    />
-                    <span v-if="duration === '0'" class="strong font-weight-normal">
-                      &nbsp;&nbsp;seconds, {{ custom_duration * 24 }} Frames
-                      playing at 24 FPS.
-                    </span>
-                    <span
-                      v-else
-                      class="strong font-weight-normal"
-                    >&nbsp;&nbsp;{{ duration * 24 }} Frames playing at 24 FPS.</span>
-                    <span
-                      v-if="headers"
-                      class="strong font-weight-normal"
-                    >&nbsp;&nbsp;(+ 4 seconds intro + 6 seconds outro)</span>
-                  </v-col>
+                            <v-col class="d-flex" cols="12" sm="12">
+                              <v-select
+                                v-model="duration"
+                                :items="format == 'mp4' ? op_duration : op_duration_gif"
+                                label="Duration"
+                              />
+                            </v-col>
+                            <v-col class="d-flex" cols="12" sm="12">
+                              <v-text-field
+                                v-if="duration === '0'"
+                                v-model="custom_duration"
+                                label="Custom Duration"
+                                type="number"
+                              />
+                              <span v-if="duration === '0'" class="strong font-weight-normal">
+                                &nbsp;&nbsp;seconds, {{ custom_duration * 24 }} Frames
+                                playing at 24 FPS.
+                              </span>
+                              <span
+                                v-else
+                                class="strong font-weight-normal"
+                              >&nbsp;&nbsp;{{ duration * 24 }} Frames playing at 24 FPS.</span>
+                              <span
+                                v-if="headers"
+                                class="strong font-weight-normal"
+                              >&nbsp;&nbsp;(+ 4 seconds intro + 6 seconds outro)</span>
+                            </v-col>
 
-                  <v-col class="d-flex" cols="12" sm="12">
-                    <v-select
-                      v-model="rm_date"
-                      :items="op_rm_date"
-                      :item-value="op_rm_date.value"
-                      label="Remove date"
-                    />
-                  </v-col>
-                  <v-col class="d-flex" cols="10" sm="10" />
+                            <v-col class="d-flex" cols="12" sm="12">
+                              <v-select
+                                v-model="rm_date"
+                                :items="op_rm_date"
+                                :item-value="op_rm_date.value"
+                                label="Remove date"
+                              />
+                            </v-col>
+                            <v-col class="d-flex" cols="10" sm="10" />
 
-                  <v-col class="d-flex" cols="12" sm="12">
-                    <v-checkbox v-model="watermark" label="Add watermark" @change="addWatermark" />
-                  </v-col>
+                            <v-col class="d-flex" cols="12" sm="12">
+                              <v-checkbox v-model="watermark" label="Add watermark" @change="addWatermark" />
+                            </v-col>
 
-                  <v-col class="d-flex" cols="12" sm="12">
-                    <v-checkbox v-model="headers" label="Add headers" />
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-card>
-          </v-tab-item>
-        </v-tabs-items>
-        <v-btn width="100%" color="primary" dark @click="checkForm">Create Time-lapse</v-btn>
+                            <v-col class="d-flex" cols="12" sm="12">
+                              <v-checkbox v-model="headers" label="Add headers" />
+                            </v-col>
+                          </v-row>
+                        </v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                  </v-tabs-items>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                  <div class="flex-grow-1"></div>
+                  <v-btn
+                    color="primary"
+                    text
+                    @click="dialog = false"
+                  >
+                    Save
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-col>
+          <v-col cols="3" class="pt-0 float-right">
+            <v-btn width="100%" color="primary" dark @click="checkForm">Create Time-lapse</v-btn>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-layout>
@@ -320,7 +366,25 @@
     }
   }
 }
+.highlight {
+  border: 5px solid #1976d2;
+}
 
+.date-time-picker {
+  z-index: 1 !important;
+  position: absolute !important;
+  padding: 15px !important;
+  width: 265px;
+}
+
+#to_datetime2 {
+  right: 5px;
+}
+
+.stage-container {
+  position: relative;
+  z-index: 0;
+}
 </style>
 
 <script>
@@ -344,8 +408,8 @@ import { mapGetters } from "vuex"
 import { Socket } from "phoenix-socket"
 import { ValidationObserver, ValidationProvider, withValidation } from "vee-validate";
 
-const width = window.innerWidth - 200 - 480;
-const height = window.innerHeight - 272 - 65;
+const width = window.innerWidth - 256 - 300;
+const height = window.innerHeight - 272;
 
 export default {
   name: "Timelapse",
@@ -360,6 +424,8 @@ export default {
   },
   data: function() {
     return {
+      dialog: false,
+      index: 0,
       value: "",
       snackbarColor: "",
       snackbar: false,
@@ -406,33 +472,10 @@ export default {
       from_disabled_hours: [],
       to_disabled_hours: [],
       slides: [],
-      swiperOption: {
-        // effect: 'coverflow',
-        slideToClickedSlide: true,
-        simulateTouch: true,
-        grabCursor: true,
-				centeredSlides: true,
-        slidesPerView: 10,
-        spaceBetween: 2,
-        // coverflowEffect: {
-        //   rotate: 10,
-        //   stretch: 0,
-        //   depth: 150,
-        //   modifier: 1,
-        //   slideShadows : false
-        // },
-        pagination: {
-          el: ".swiper-pagination",
-          type: "fraction"
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
-        },
-      },
       configKonva: {
         width: width,
-        height: height
+        height: height,
+        keepRatio: true
       },
       configLogo: {
         x: 20,
@@ -442,8 +485,10 @@ export default {
         name: "logo"
       },
       configWatermark: {
-        x: 20,
-        y: 20,
+        x: width - 120,
+        y: height - 120,
+        width: 100,
+        height: 100,
         draggable: true,
         image: new Image(),
         name: "watermark"
@@ -558,9 +603,6 @@ export default {
       return this.$store.state.cameras.find(
         o => o.id === this.$route.params.id
       );
-    },
-    swiper() {
-      return this.$refs.mySwiper.swiper
     }
   },
 
@@ -587,6 +629,8 @@ export default {
 
   methods: {
     changeDate() {
+      this.isLoading = true
+      this.index = 0
       this.configImage.image = new Image()
       if (this.selected_camera.id) {
         this.slides = []
@@ -655,15 +699,12 @@ export default {
 			
     },
     getSlides() {
-      var index = 0
-      if (this.swiper) {
-        index = this.swiper.activeIndex;
-      }
       var img = new Image();
-      img.src = this.slides[index];
+      img.src = this.slides[this.index];
       this.configImage.image = img;
-
       img.onload = () => {
+        this.configKonva.height = img.height * width / img.width
+        this.configImage.height = img.height * width / img.width
         this.$refs.stage.getStage().drawScene();
         this.isLoading = false;
       };
@@ -835,7 +876,6 @@ export default {
         formData.append("format", this.format);
         formData.append("rm_date", this.rm_date);
         formData.append("timezone", timezone);
-        console.log(formData);
         
         if (this.duration === "0") {
           formData.append("duration", this.custom_duration);
@@ -853,7 +893,7 @@ export default {
               "Content-Type": "multipart/form-data"
             }
           })
-          .then(function(response) {
+          .then(() => {
             this.snackbarColor = "success"
             this.snackbarText = "Your request has been processed. We are preparing your time-lapse"
             this.snackbar = true
