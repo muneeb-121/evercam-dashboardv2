@@ -25,7 +25,6 @@
         <v-row style="max-widht: 100%">
           <v-col cols="12" class="pb-0 stage-container">
             <vue-ctk-date-time-picker
-              id="from_datetime2"
               v-model="from_datetime2"
               class="datetime-picker pa-4"
               format="YYYY-MM-DD HH:mm"
@@ -45,9 +44,8 @@
               </v-btn>
             </vue-ctk-date-time-picker>
             <vue-ctk-date-time-picker
-              id="to_datetime2"
               v-model="to_datetime2"
-              class="datetime-picker pa-4 float-right"
+              class="datetime-picker pa-4 float-right to_datetime2"
               format="YYYY-MM-DD HH:mm"
               button-color="#68a2d5"
               color="#68a2d5"
@@ -377,7 +375,7 @@
   width: 265px;
 }
 
-#to_datetime2 {
+.to_datetime2 {
   right: 5px;
 }
 
