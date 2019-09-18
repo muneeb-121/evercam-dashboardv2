@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col col="auto" lg="6" md="12" sm="12" xs="12" class="left-col">
+      <v-col col="auto" lg="6" md="6" sm="12" xs="12" class="left-col">
         <v-card class="card-style">
           <v-card-title class="subtitle-1">
             Camera Details
@@ -253,7 +253,7 @@
         </v-card>
       </v-col>
 
-      <v-col col="auto" lg="6" md="12" sm="12" xs="12" class="right-col">
+      <v-col col="auto" lg="6" md="6" sm="12" xs="12" class="right-col">
         <v-card class="card-style">
           <v-card-title class="label subtitle-1">
             Location
@@ -293,7 +293,7 @@
         <v-card-text>
           <v-container class="model-container">
             <v-row>
-              <v-col col="auto" lg="7" md="12" sm="12" xs="12">
+              <v-col col="auto" lg="7" md="7" sm="12" xs="12">
                 <v-text-field
                   v-model="camera.name"
                   label="Name"
@@ -400,7 +400,7 @@
                 </template>
                 </v-select>
               </v-col>
-              <v-col col="auto" lg="5" md="12" sm="12" xs="12" class="col-paddings">
+              <v-col col="auto" lg="5" md="5" sm="12" xs="12" class="col-paddings">
                 <v-img :src="testSnapshot" aspect-ratio="2" class="test-img" />
                 <v-btn color="blue darken-1" text @click="doTestSnapshot">
                   Test Snapshot
