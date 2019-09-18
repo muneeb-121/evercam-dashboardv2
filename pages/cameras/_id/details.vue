@@ -411,7 +411,6 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <!-- <div class="flex-grow-1" /> -->
           <v-btn color="blue darken-1" text @click="dialog = false">
             Close
           </v-btn>
