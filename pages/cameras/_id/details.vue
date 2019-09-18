@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="6" class="left-col">
+      <v-col col="auto" lg="6" md="6" sm="12" xs="12" class="left-col">
         <v-card class="card-style">
           <v-card-title class="subtitle-1">
             Camera Details
@@ -151,7 +151,7 @@
                   <td class="caption">
                     Snapshot URL:
                   </td>
-                  <td class="caption">
+                  <td class="caption break-word">
                     {{ snapshot_url }}
                   </td>
                 </tr>
@@ -159,7 +159,7 @@
                   <td class="caption">
                     H264 URL:
                   </td>
-                  <td v-if="camera.external.rtsp.h264" class="caption">
+                  <td v-if="camera.external.rtsp.h264" class="caption break-word">
                     {{
                       camera.external.rtsp.h264.replace(
                         `rtsp://${camera.external.host}:${camera.external.rtsp.port}/`,
@@ -253,7 +253,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="6" class="right-col">
+      <v-col col="auto" lg="6" md="6" sm="12" xs="12" class="right-col">
         <v-card class="card-style">
           <v-card-title class="label subtitle-1">
             Location
@@ -289,10 +289,11 @@
             Cameras Details
           </span>
         </v-card-title>
+        <v-divider></v-divider>
         <v-card-text>
           <v-container class="model-container">
             <v-row>
-              <v-col cols="8">
+              <v-col col="auto" lg="7" md="7" sm="12" xs="12">
                 <v-text-field
                   v-model="camera.name"
                   label="Name"
@@ -399,7 +400,7 @@
                 </template>
                 </v-select>
               </v-col>
-              <v-col cols="4" class="col-paddings">
+              <v-col col="auto" lg="5" md="5" sm="12" xs="12" class="col-paddings">
                 <v-img :src="testSnapshot" aspect-ratio="2" class="test-img" />
                 <v-btn color="blue darken-1" text @click="doTestSnapshot">
                   Test Snapshot
@@ -408,8 +409,8 @@
             </v-row>
           </v-container>
         </v-card-text>
+        <v-divider></v-divider>
         <v-card-actions>
-          <div class="flex-grow-1" />
           <v-btn color="blue darken-1" text @click="dialog = false">
             Close
           </v-btn>
@@ -428,6 +429,10 @@
   line-height: 1;
   background-color: #eee;
   border-bottom: 1px solid #999;
+}
+
+.break-word {
+  word-break: break-all;
 }
 
 .left-col {
@@ -474,9 +479,10 @@
 }
 
 .vue-map-container {
-  height: 450px;
+  height: auto;
   max-width: 992px;
   width: 100%;
+  padding-top: 56.2%;
 }
 
 .edit-link {
