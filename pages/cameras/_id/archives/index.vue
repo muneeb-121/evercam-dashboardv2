@@ -90,10 +90,10 @@
             "
           >
             <v-list-item-title>
-              <v-icon small>
+              <v-icon small class="pl-2">
                 {{ item.icon }}
               </v-icon>
-              &nbsp;{{ item.title }}
+              {{ item.title }}
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -331,7 +331,10 @@ export default {
     return $axios
       .$get(`${process.env.API_URL}cameras/${params.id}/archives`)
       .then(res => {
-        return { archives: res.archives }
+        let completed_archives = res.archives.filter(function(archive) {
+          return archive.status == "Completed" || archive.status == 5
+        })
+        return { archives: completed_archives }
       })
       .catch(() => {
         error({ statusCode: 404, message: "Post not found" })
