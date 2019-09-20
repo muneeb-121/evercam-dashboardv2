@@ -392,11 +392,11 @@
                   class="caption"
                   return-object
                 >
-                <template v-slot:item="data">
-                  <v-list-item-content>
-                    <v-list-item-title class="caption" v-text="data.item.text" />
-                  </v-list-item-content>
-                </template>
+                  <template v-slot:item="data">
+                    <v-list-item-content>
+                      <v-list-item-title class="caption" v-text="data.item.text" />
+                    </v-list-item-content>
+                  </template>
                 </v-select>
               </v-col>
               <v-col cols="4" class="col-paddings">
