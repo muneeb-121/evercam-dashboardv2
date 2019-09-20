@@ -22,7 +22,7 @@
                   <v-list-item class="item-padding">
                     <v-list-item-content>
                       <v-list-item-title class="caption text-height">
-                        {{ owner.fullname }} <small v-if="owner.email === 'azhar@evercam.io'" class="highlight">(you)</small>
+                        {{ owner.fullname }} <small v-if="owner.email === user_email" class="highlight">(you)</small>
                       </v-list-item-title>
                       <v-list-item-subtitle class="caption text-height">{{ owner.email }}</v-list-item-subtitle>
                     </v-list-item-content>
@@ -35,13 +35,79 @@
               </td>
               <td class="col-button"></td>
               <td>
-                <v-btn
-                  class="transfer-link caption"
-                  text
-                  href="#"
+                <v-dialog
+                  v-model="dialog"
+                  width="500"
                 >
-                  Transfer
-                </v-btn>
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      v-if="owner.email === user_email"
+                      class="transfer-link caption"
+                      text
+                      v-on="on"
+                    >
+                      Transfer
+                    </v-btn>
+                  </template>
+
+                  <v-card>
+                    <v-card-title
+                      class="subtitle-1 grey lighten-2"
+                      primary-title
+                    >
+                      Transfer Camera Ownership
+                    </v-card-title>
+
+                    <v-card-text>
+                      <p class="caption gravatar-margin">
+                        Transfer ownership to a user who you are already sharing the camera with.
+                      </p>
+                      <p class="caption">
+                        <strong>
+                          Once you transfer, Camera will be shared with you with full-rights.
+                        </strong>
+                      </p>
+                      <v-select
+                        :items="shares"
+                        class="caption remove-padding"
+                        placeholder="Select a new owner..."
+                        hide-details
+                        return-object
+                        @change="onChangeOwner"
+                      >
+                        <template v-slot:selection="data">
+                          <v-list-item-content>
+                            <v-list-item-title class="caption" v-text="data.item.fullname" />
+                          </v-list-item-content>
+                        </template>
+                        <template v-slot:item="data">
+                          <v-list-item-content>
+                            <v-list-item-title class="caption" v-text="data.item.fullname" />
+                          </v-list-item-content>
+                        </template>
+                      </v-select>
+                    </v-card-text>
+
+                    <v-divider></v-divider>
+
+                    <v-card-actions class="button-padding">
+                      <v-btn
+                        color="error"
+                        depressed
+                        @click="transferOwnership"
+                      >
+                        Transfer
+                      </v-btn>
+                      <v-btn
+                        class="button-style"
+                        outlined
+                        depressed
+                        @click="dialog = false">
+                        Cancel
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
               </td>
             </tr>
             <tr v-for="share in shares">
@@ -55,7 +121,7 @@
                   <v-list-item class="item-padding">
                     <v-list-item-content>
                       <v-list-item-title class="caption text-height">
-                        {{ share.fullname }} <small v-if="share.email === 'azhar@evercam.io'" class="highlight">(you)</small>
+                        {{ share.fullname }} <small v-if="share.email === user_email" class="highlight">(you)</small>
                       </v-list-item-title>
                       <v-list-item-subtitle class="caption text-height">{{ share.email }}</v-list-item-subtitle>
                     </v-list-item-content>
@@ -280,11 +346,20 @@
 </template>
 
 <style scoped>
+  .button-style {
+    color: rgba(0, 0, 0, 0.60) !important;
+    border: 1px solid rgba(0, 0, 0, 0.30) !important;
+  }
+
   .transfer-link {
     color: #428bca;
     background-color: transition;
     padding: 0 !important;
     text-decoration: none;
+  }
+
+  .button-padding {
+    padding-left: 24px !important;
   }
 
   .card-style {
@@ -357,6 +432,7 @@ export default {
   name: "Shares",
   data() {
     return {
+      newOwner: null,
       valid: true,
       dialog: false,
       updateShare: false,
@@ -448,7 +524,8 @@ export default {
     return {
       shares: shares_list,
       owner: data.owner,
-      share_requests: requests_list
+      share_requests: requests_list,
+      user_email: store.getters.email
     }
   },
   methods: {
@@ -483,7 +560,7 @@ export default {
       let index = email.indexOf("@")
       let domain = email.substr((index+1))
       let favicon = `https://favicon.yandex.net/favicon/${domain}`
-      `https://gravatar.com/avatar/${signature}?d=${favicon}`
+      return `https://gravatar.com/avatar/${signature}?d=${favicon}`
     },
     onChangeRights(data) {
       console.log(data)
@@ -598,12 +675,11 @@ export default {
             console.log("Camera successfully shared with user(s).")
           }
           else {
-            $ul = $('<ul style="float: left;">')
+            let $ul = $('<ul style="float: left;">')
             data.errors.forEach(function(error) {
               $ul.append(`<li>${error.text}</li>`)
             })
-            html = `<p>Camera has been successfully shared but few errors came along, see below.</p>${$ul.html()}`
-            console.log(html)
+            console.log(`<p>Camera has been successfully shared but few errors came along, see below.</p>${$ul.html()}`)
           }
           this.clearForm()
         } catch(e) {
@@ -617,6 +693,61 @@ export default {
       this.shareEmails = ""
       this.shareMessage = ""
       this.createRight = "minimum"
+    },
+    onChangeOwner(data) {
+      this.newOwner = data
+    },
+    async transferOwnership() {
+      try {
+        const response = await this.$axios
+          .$put(`${process.env.API_URL}cameras/${this.$route.params.id}`,
+            {
+              user_id: this.newOwner.user_id
+            }
+          )
+
+        const { data } = await this.$axios.get(
+          `${process.env.API_URL}cameras/${this.$route.params.id}/shares`
+        )
+        let shares_list = []
+        let permission = ""
+        let avatar = ""
+        data.shares.forEach(function(share) {
+          if (share.rights.indexOf("edit") !== -1) {
+            permission = "full"
+          } else if (share.rights.indexOf("share") !== -1) {
+            permission = "minimal+share"
+          } else {
+            permission = "minimum"
+          }
+
+          let index = share.email.indexOf("@")
+          let domain = share.email.substr((index+1))
+          avatar = `https://gravatar.com/avatar/${hex_md5(share.email)}?d=https://favicon.yandex.net/favicon/${domain}`
+
+          shares_list.push({
+            id: share.id,
+            avatar: avatar,
+            fullname: share.fullname,
+            user_id: share.user_id,
+            email: share.email,
+            sharer_name: share.sharer_name,
+            sharer_email: share.sharer_email,
+            permission: permission,
+            camera_id: share.camera_id
+          })
+        })
+        data.owner.avatar = this.getFavicon(data.owner.email)
+
+        console.log("Camera ownership has been successfully transferred.")
+        this.newOwner = null
+        this.dialog = false
+        this.shares = shares_list
+        this.owner = data.owner
+      } catch(e) {
+        console.log(e)
+        console.log("Failed to transfer camera ownership.")
+      }
     }
   }
 }
