@@ -145,7 +145,7 @@
                   class="caption remove-padding"
                   hide-details
                   return-object
-                  @change="onChangeRights"
+                  v-on:change="onChangeRights($event, share.id, share.email, 'shares')"
                 >
                   <template v-slot:item="data">
                     <v-list-item-content>
@@ -155,7 +155,13 @@
                 </v-select>
               </td>
               <td class="col-button">
-                <v-btn v-if="updateShare" color="blue darken-1 caption" text>
+                <v-btn
+                  v-show="showUpdate == share.id"
+                  depressed
+                  color="primary"
+                  class="caption"
+                  @click="updateShare"
+                >
                   Save
                 </v-btn>
               </td>
@@ -231,7 +237,7 @@
                   class="caption remove-padding"
                   hide-details
                   return-object
-                  @change="onChangeRights"
+                  v-on:change="onChangeRights($event, request.id, request.email, 'shares/requests')"
                 >
                   <template v-slot:item="data">
                     <v-list-item-content>
@@ -241,7 +247,13 @@
                 </v-select>
               </td>
               <td class="col-button">
-                <v-btn v-if="updateShare" color="blue darken-1 caption" text>
+                <v-btn
+                  v-show="showUpdate == request.id"
+                  color="primary"
+                  class="caption"
+                  depressed
+                  @click="updateShare"
+                >
                   Save
                 </v-btn>
               </td>
@@ -435,7 +447,8 @@ export default {
       newOwner: null,
       valid: true,
       dialog: false,
-      updateShare: false,
+      showUpdate: "",
+      updateData: {},
       createRight: "minimum",
       shareEmails: "",
       shareMessage: "",
@@ -543,10 +556,10 @@ export default {
       let rights = ["list", "snapshot"]
       let baseRights = ["snapshot", "view", "edit", "delete", "list", "share"]
       if(permissions === "full") {
-        baseRights.forEach(function(right){
+        baseRights.forEach(function(right) {
           if(right != "delete") {
             rights.push(right)
-            rights.push("grant~#{right}")
+            rights.push(`grant~${right}`)
           }
         })
       }
@@ -562,9 +575,27 @@ export default {
       let favicon = `https://favicon.yandex.net/favicon/${domain}`
       return `https://gravatar.com/avatar/${signature}?d=${favicon}`
     },
-    onChangeRights(data) {
-      console.log(data)
-      this.updateShare = !this.updateShare
+    onChangeRights(e, shareID, email, src) {
+      this.updateData = {route: src, email: email, rights: e.value}
+      this.showUpdate = shareID
+    },
+    updateShare() {
+      this.$axios
+        .$patch(`${process.env.API_URL}cameras/${this.$route.params.id}/${this.updateData.route}`,
+          {
+            email: this.updateData.email,
+            rights: this.generateRightList(this.updateData.rights)
+          }
+        )
+        .then(function(data) {
+          console.log("Rights updated.")
+        })
+        .catch((jqXHR) => {
+          console.log(jqXHR)
+          console.log("Delete of camera shared failed. Please contact support.")
+        })
+      this.updateData = {}
+      this.showUpdate = ""
     },
     deleteShare(event) {
       let control = $(event.currentTarget)
