@@ -1,6 +1,6 @@
 <template>
   <div id="map">
-    <v-layout>git 
+    <v-layout>
       <h2>Map page</h2>
     </v-layout>
     <GmapMap
